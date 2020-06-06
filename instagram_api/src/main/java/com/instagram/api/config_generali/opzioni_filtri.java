@@ -24,7 +24,7 @@ public class opzioni_filtri {
 	public int getLimite() {
 		return limite;
 	}
-
+	
 	public void setLimite(int limite) {
 		if (limite > 0)
 			this.limite = limite;
