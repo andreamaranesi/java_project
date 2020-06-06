@@ -17,5 +17,4 @@ public class opzioni_album {
 		this.limite = limite;
 	}
 	
-	
 }
