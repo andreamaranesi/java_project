@@ -5,6 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 
+/**
+ * 
+ * avvio applicazione
+ * @author Andrea
+ *
+ */
 
 @SpringBootApplication
 @ComponentScan("com.instagram.api.*")
