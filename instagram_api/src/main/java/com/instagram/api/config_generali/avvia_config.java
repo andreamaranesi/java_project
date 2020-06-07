@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
+ * classe per creare una nuova classe <b>globale</b> configurazione che conterrà al suo interno
+ * i dati caricati nel file locale config.json
  * 
  * @author Andrea
  */
