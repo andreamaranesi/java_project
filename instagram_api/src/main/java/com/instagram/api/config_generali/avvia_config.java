@@ -10,6 +10,12 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * 
+ * @author Andrea
+ */
+
 @Component
 public class avvia_config {
 
@@ -17,6 +23,13 @@ public class avvia_config {
 	private String path_filtri;
 	@Value("${statistiche}")
 	private String path_statistiche;
+	
+	/**
+	 * 
+	 * 
+	 * @see com.instagram.api.configurazione
+	 * @return nuova configurazione
+	 */
 	
 	@Bean (name="config_bean")
 	public configurazione nuovaConfigurazione() {
