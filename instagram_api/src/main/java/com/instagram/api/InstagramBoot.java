@@ -5,8 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 
-import com.example1.demo.tools.Tools;
-import com.instagram.api.modelli.chiamate_API;
 
 @SpringBootApplication
 @ComponentScan("com.instagram.api.*")

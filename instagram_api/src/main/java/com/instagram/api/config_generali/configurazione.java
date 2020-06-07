@@ -5,17 +5,23 @@ import java.io.IOException;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-import com.example1.demo.tools.Tools;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class configurazione {
+public class configurazione extends leggi_file{
 
 	public opzioni_filtri opzioni;
 	public opzioni_statistiche statistiche;
 	
-	public configurazione(String path_opzioni, String path_statistiche) {
-		
-	}
+		public configurazione (String path_opzioni, String path_statistiche) {
+			String leggi_json_opzioni=leggi(path_opzioni);
+			String leggi_json_statistiche=leggi(path_statistiche);
+			try {
+				opzioni=new ObjectMapper().readValue(leggi_json_opzioni, opzioni_filtri.class);
+				statistiche=new ObjectMapper().readValue(leggi_json_statistiche, opzioni_statistiche.class);			
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+		}
 }
