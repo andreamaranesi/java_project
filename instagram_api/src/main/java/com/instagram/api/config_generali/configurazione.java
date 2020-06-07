@@ -8,7 +8,14 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+/**
+ * 
+ * legge nel costruttore i file locali json contenenti i filtri e le statistiche di default, nonché
+ * gli access_token dei vari utenti
+ * 
+ * @author Alessio Pettinari
+ *
+ */
 public class configurazione extends leggi_file{
 
 	public opzioni_filtri opzioni;
