@@ -1,0 +1,8 @@
+{
+	"hashtag": true,
+	"like": true,
+	"commenti": true,
+	"limite_post": 20,
+	"dimensione": true,
+	"prova": true
+}
