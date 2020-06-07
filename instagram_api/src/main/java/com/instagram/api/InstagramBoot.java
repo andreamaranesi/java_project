@@ -14,7 +14,6 @@ public class InstagramBoot {
 
 	public static void main(String[] args) {
 		SpringApplication.run(InstagramBoot.class, args);
-	
 	}
 
 }
