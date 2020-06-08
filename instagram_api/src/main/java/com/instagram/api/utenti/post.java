@@ -35,4 +35,6 @@ public class post extends strumenti_post{
 	String dimensione=null; // MB, KB
 	private ArrayList<post> children = new ArrayList();
 	
+	
+	
 }
