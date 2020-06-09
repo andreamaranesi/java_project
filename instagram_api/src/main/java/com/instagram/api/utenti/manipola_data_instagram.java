@@ -3,7 +3,16 @@ package com.instagram.api.utenti;
 import java.util.HashMap;
 
 public abstract class manipola_data_instagram {
-	
+
+	public String data_formattata(String data_caricamento) {
+		HashMap<String, Integer> info = manipola_data(data_caricamento);
+		if (info == null)
+			return null;
+		return info.get("giorno").toString() + "/" + info.get("mese") + "/" + info.get("anno") + " - " + info.get("ora")
+				+ ":" + info.get("minuti") + ":" + info.get("secondi");
+
+	}
+
 	public HashMap<String, Integer> manipola_data(String data_caricamento) {
 
 		HashMap<String, Integer> finale = new HashMap();

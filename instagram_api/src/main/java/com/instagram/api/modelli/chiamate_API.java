@@ -116,8 +116,6 @@ public abstract class chiamate_API extends strumenti_comuni{
 
 
 
-
-
 	public lista_utenti nuova_chiamata_API() {
 		lista_utenti lista_utenti = new lista_utenti();
 
