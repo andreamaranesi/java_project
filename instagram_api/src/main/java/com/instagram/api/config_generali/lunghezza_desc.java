@@ -1,5 +1,8 @@
 package com.instagram.api.config_generali;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class lunghezza_desc {
 
 	double min = 0;

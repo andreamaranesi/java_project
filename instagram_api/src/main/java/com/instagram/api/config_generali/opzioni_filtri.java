@@ -20,6 +20,7 @@ public class opzioni_filtri {
 	@JsonProperty("credenziali")
 	public ArrayList<credenziali_utenti> credenziali_utenti = new ArrayList();
 	
+
 	public int getLimite() {
 		return limite;
 	}

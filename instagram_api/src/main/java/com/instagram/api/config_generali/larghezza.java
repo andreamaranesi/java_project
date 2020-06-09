@@ -1,5 +1,8 @@
 package com.instagram.api.config_generali;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class larghezza {
 	double min = 0;
 	double max = Double.POSITIVE_INFINITY;
