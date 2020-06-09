@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public abstract class leggi_file {
+public abstract class strumenti_comuni {
 
 	public String leggi(String path){
 		String file = "";
