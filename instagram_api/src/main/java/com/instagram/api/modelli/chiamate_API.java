@@ -56,7 +56,7 @@ public abstract class chiamate_API extends strumenti_comuni{
 			media = new ObjectMapper().readValue(json, media.class);
 			if (media.getId_media() != null) {
 				rimanenti = rimanenti - media.getId_media().size();
-				// Tools.pr(media.getData().size());
+				
 
 				for (int i = 0; i < media.getId_media().size(); i++) {
                     //creare ottieni_post
@@ -69,10 +69,10 @@ public abstract class chiamate_API extends strumenti_comuni{
 			}
 
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-		// Tools.pr(media.getPaging().getCursors().getAfter());
+	
 	}
 
 
@@ -92,7 +92,7 @@ public abstract class chiamate_API extends strumenti_comuni{
 				String json = restTemplate.getForObject(ottieni_utente, String.class, access_token);
 				utente user = new ObjectMapper().readValue(json, utente.class);
 				lista_utenti.utenti.add(user);
-				// Tools.pr(config.opzioni.getLimite());
+				
 				iterazione_ottieni_media(user, access_token, "", config.opzioni.getLimite());
 			} catch (Exception e) {
 
