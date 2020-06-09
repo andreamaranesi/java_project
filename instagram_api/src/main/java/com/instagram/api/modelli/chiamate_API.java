@@ -28,6 +28,7 @@ import com.instagram.api.ricorsione_post.media;
 import com.instagram.api.strumenti_rapidi.strumenti_comuni;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 import com.instagram.api.utenti.lista_utenti;
+import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 @Controller
 public abstract class chiamate_API extends strumenti_comuni{
@@ -46,6 +47,57 @@ public abstract class chiamate_API extends strumenti_comuni{
 	String ottieni_html_post = "https://api.instagram.com/oembed?url=https://www.instagram.com/p/{media-id}";
 	String ottieni_post_album = "https://graph.instagram.com/{media-id}?fields=media_url,media_type&access_token={token}";
 
+	
+	private void ottieni_post(Object user_album, String access_token, long id, boolean album) {
+		RestTemplate restTemplate = new RestTemplate();
+		String json = restTemplate.getForObject(album ? ottieni_post_album : ottieni_post, String.class, id,
+				access_token);
+		try {
+			post post = new ObjectMapper().readValue(json, post.class);
+			utente utente;
+			if (album) {
+				post _album = (post) user_album;
+				_album.getChildren().add(post);
+			} else {
+				utente = (utente) user_album;
+				utente.posts.add(post);
+			}
+			if (!album && post.getMedia_type().contains("CAROUSEL_ALBUM")) {
+				post.setAlbum(true);
+				iterazione_ottieni_media(post, access_token, "", config.opzioni.opzioni_album.getLimite(), post.getId());
+			}
+
+		} catch (JsonProcessingException e) {
+			shortcodes.pr("errore");
+		}
+	}
+
+	private void iterazione_ottieni_media(post album, String access_token, String after, int rimanenti, long media_id) {
+		RestTemplate restTemplate = new RestTemplate();
+		String json = restTemplate.getForObject(ottieni_album_media, String.class, media_id, access_token, rimanenti,
+				after);
+		media media;
+		try {
+			media = new ObjectMapper().readValue(json, media.class);
+			if (media.getId_media() != null) {
+				rimanenti -= media.getId_media().size();
+				for (id_media data : media.getId_media()) {
+
+					ottieni_post(album, access_token, data.getId(), true);
+
+				}
+				if (rimanenti > 0 && media.getPaginazione() != null) {
+					iterazione_ottieni_media(album, access_token, media.getPaginazione().getCursori().getSuccessivo(), rimanenti,
+							media_id);
+				}
+			}
+
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 	private void iterazione_ottieni_media(utente user, String access_token, String after, int rimanenti) {
 		RestTemplate restTemplate = new RestTemplate();
@@ -59,8 +111,8 @@ public abstract class chiamate_API extends strumenti_comuni{
 				
 
 				for (int i = 0; i < media.getId_media().size(); i++) {
-                    //creare ottieni_post
 					id_media data = media.getId_media().get(i);
+					ottieni_post(user, access_token, data.getId(), false);
 				}
 
 				if (rimanenti > 0 && media.getPaginazione() != null) {
