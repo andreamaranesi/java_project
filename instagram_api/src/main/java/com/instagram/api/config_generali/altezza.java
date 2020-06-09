@@ -12,7 +12,6 @@ public class altezza {
 		if (min >= 0)
 			this.min = min;
 	}
-
 	public double getMax() {
 		return max;
 	}
