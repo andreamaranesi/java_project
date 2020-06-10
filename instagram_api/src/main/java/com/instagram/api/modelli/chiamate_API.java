@@ -1,5 +1,6 @@
 package com.instagram.api.modelli;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

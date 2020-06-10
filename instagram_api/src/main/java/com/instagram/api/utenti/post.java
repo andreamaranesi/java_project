@@ -9,10 +9,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.instagram.api.config_generali.opzioni_filtri;
 import com.instagram.api.strumenti_rapidi.shortcodes;
+import com.instagram.api.utenti.metadati.descrizione_attributo;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class post extends strumenti_post{
+public class post extends strumenti_post {
 
 	long id;
 	String caption, media_url, media_type, timestamp;
@@ -29,37 +30,50 @@ public class post extends strumenti_post{
 	@JsonIgnore
 	public boolean restituisci_dimensioni = true;
 
-	
 	String descrizione = null;
 	String tipo_post = null;
 	String data_creazione = null;
 
 	int altezza = -1;
 	int larghezza = -1;
-	String dimensione=null; // MB, KB
+
+	String dimensione = null; // MB, KB
 	private ArrayList<post> children = new ArrayList();
-	public String getTipo_post() {
+
+	public post(boolean metadati) {
+		this.metadati = true;
+	}
+
+	public post() {
+
+	}
+
+	public Object getTipo_post() {
 		if (this.filtrato) {
 			return ritorna_tipo_media(this.media_type);
 		}
+		if (this.metadati)
+			return new descrizione_attributo("Stringa", "Il tipo del post (IMMAGINE, VIDEO, CAROUSEL_ALBUM)");
 		return tipo_post;
 	}
-
 
 	public Object getAltezza() {
 		if (altezza == -1)
 			return null;
 		if (this.filtrato)
 			return altezza + "px";
+		if (this.metadati)
+			return new descrizione_attributo("int", "l'altezza del media IMMAGINE in px");
 		return altezza;
 	}
-	
 
 	public Object getLarghezza() {
 		if (larghezza == -1)
 			return null;
-		if(this.filtrato)
+		if (this.filtrato)
 			return larghezza + "px";
+		if (this.metadati)
+			return new descrizione_attributo("int", "larghezza del media IMMAGINE in px");
 		return larghezza;
 	}
 
@@ -78,18 +92,21 @@ public class post extends strumenti_post{
 			this.dimensione = dimensione;
 	}
 
-	public String getDimensione() {
+	public Object getDimensione() {
+		if (this.metadati)
+			return new descrizione_attributo("String", "dimensione in MB o KB dell'immagine");
 		return dimensione;
 	}
 
-
-	public HashMap<String,Integer> hashmap_data() {
+	public HashMap<String, Integer> hashmap_data() {
 		return super.manipola_data(this.timestamp);
 	}
-	
-	public String getData_creazione() {
+
+	public Object getData_creazione() {
 		if (this.filtrato)
 			return data_formattata(this.timestamp);
+		if (this.metadati && !this.album)
+			return new descrizione_attributo("String", "data di caricamento del media");
 		return data_creazione;
 	}
 
@@ -97,10 +114,12 @@ public class post extends strumenti_post{
 		this.data_creazione = data_creazione;
 	}
 
-	public String getDescrizione() {
+	public Object getDescrizione() {
 		if (this.filtrato && this.restituisci_desc && this.restituisci_desc) {
 			return this.caption;
 		}
+		if (this.metadati && !this.album)
+			return new descrizione_attributo("String", "descrizione del post");
 		return descrizione;
 	}
 
@@ -108,12 +127,12 @@ public class post extends strumenti_post{
 		// this.descrizione = descrizione;
 	}
 
-	
-
-	public ArrayList<post> getChildren() {
-		if(this.album) {
+	public Object getChildren() {
+		if (this.album) {
 			return this.children;
 		}
+		if (this.metadati)
+			return new descrizione_attributo("ArrayList<post>", "figli dell'album");
 		return null;
 	}
 
@@ -133,7 +152,9 @@ public class post extends strumenti_post{
 		return super.hashtag(this.caption);
 	}
 
-	public long getId() {
+	public Object getId() {
+		if (this.metadati)
+			return new descrizione_attributo("long", "id del post");
 		return id;
 	}
 

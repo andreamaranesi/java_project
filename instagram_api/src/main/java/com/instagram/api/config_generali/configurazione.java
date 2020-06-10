@@ -31,4 +31,7 @@ public class configurazione extends leggi_file{
 				e.printStackTrace();
 			}
 		}
+
+		public configurazione() {
+		}
 }

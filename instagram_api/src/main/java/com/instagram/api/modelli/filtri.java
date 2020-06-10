@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.instagram.api.config_generali.configurazione;
 import com.instagram.api.config_generali.lunghezza_desc;
 import com.instagram.api.config_generali.opzioni_filtri;
+import com.instagram.api.eccezioni.access_token_errato;
+import com.instagram.api.eccezioni.eccezione;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 import com.instagram.api.utenti.lista_utenti;
 import com.instagram.api.utenti.post;
@@ -90,7 +92,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	public Object ottieni_filtri(@RequestBody opzioni_filtri _filtri,
 			@RequestParam(value = "leggi_locale", defaultValue = "false") boolean leggi_dafile_locale,
 			@RequestParam(value = "hashtag", defaultValue = "") String hashtag,
-			@RequestParam(value = "data_caricamento", defaultValue = "") String data_caricamento) {
+			@RequestParam(value = "data_caricamento", defaultValue = "") String data_caricamento) throws JsonProcessingException, access_token_errato, eccezione {
 
 		// leggi da il file ./dati-lettura.json
 		if (leggi_dafile_locale) {
