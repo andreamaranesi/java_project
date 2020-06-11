@@ -2,6 +2,7 @@ package com.instagram.api.config_generali;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.instagram.api.eccezioni.cifra_errata;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -31,9 +32,11 @@ public class opzioni_statistiche {
 		return tipo_dimensione;
 	}
 
-	public void setTipo_dimensione(int tipo_dimensione) {
+	public void setTipo_dimensione(int tipo_dimensione) throws cifra_errata {
 		if (this.tipo_dimensione >= 0 && this.tipo_dimensione <= 1)
 			this.tipo_dimensione = tipo_dimensione;
+		else
+				throw new cifra_errata("Tipo dimensione", tipo_dimensione,0,1);
 	}
 
 	public boolean isHashtag() {

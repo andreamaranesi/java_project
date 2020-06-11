@@ -3,6 +3,7 @@ package com.instagram.api.config_generali;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.instagram.api.eccezioni.cifra_errata;
 import com.instagram.api.eccezioni.eccezione;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,11 +21,11 @@ public class opzioni_post {
 		return tipo_dati;
 	}
 
-	public void setTipo_dati(int tipo_dati) throws eccezione {
+	public void setTipo_dati(int tipo_dati) throws cifra_errata {
 		if (tipo_dati >= 0 && tipo_dati <= 1)
 			this.tipo_dati = tipo_dati;
 		else
-			throw new eccezione("Tipo dati nelle opzioni non valido (intero compreso tra 0 e 1 ) ");
+			throw new cifra_errata("Tipo dati nelle opzioni non valido (intero compreso tra 0 e 1 ) ");
 
 	}
 
