@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,6 +30,10 @@ public abstract class chiamate_API extends strumenti_comuni{
 	@Autowired
 	@Qualifier("config_bean")
 	public configurazione config;
+	
+
+	@Value("${dati_lettura}")
+	protected String dati_lettura;
 
 	String ottieni_utente = "https://graph.instagram.com/me?access_token={token}&fields=id,username";
 	String ottieni_media = "https://graph.instagram.com/{user-id}/media?access_token={token}&limit={limite}&after={after}";
@@ -41,6 +45,8 @@ public abstract class chiamate_API extends strumenti_comuni{
 	String ottieni_html_post = "https://api.instagram.com/oembed?url=https://www.instagram.com/p/{media-id}";
 	String ottieni_post_album = "https://graph.instagram.com/{media-id}?fields=media_url,media_type&access_token={token}";
 
+	
+	
 	@SuppressWarnings("unchecked")
 	private void ottieni_post(Object user_album, String access_token, long id, boolean album) throws eccezione {
 		RestTemplate restTemplate = new RestTemplate();
