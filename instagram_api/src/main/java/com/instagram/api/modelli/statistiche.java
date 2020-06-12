@@ -251,12 +251,9 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				}
 				
 			}
-			// String ciao=new ObjectMapper().writeValueAsString(lista_utenti);
-
 			return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(lista);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			shortcodes.pr(e.getLocalizedMessage());
 		}
 		return "{\"errore\":\"true\"}";
