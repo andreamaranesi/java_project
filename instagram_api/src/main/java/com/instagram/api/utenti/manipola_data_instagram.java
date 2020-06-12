@@ -2,9 +2,10 @@ package com.instagram.api.utenti;
 
 import java.util.HashMap;
 
-public abstract class manipola_data_instagram {
+import com.instagram.api.strumenti_rapidi.shortcodes;
 
-	public String data_formattata(String data_caricamento) {
+public abstract class manipola_data_instagram {
+	protected String data_formattata(String data_caricamento) {
 		HashMap<String, Integer> info = manipola_data(data_caricamento);
 		if (info == null)
 			return null;
@@ -13,7 +14,7 @@ public abstract class manipola_data_instagram {
 
 	}
 
-	public HashMap<String, Integer> manipola_data(String data_caricamento) {
+	protected HashMap<String, Integer> manipola_data(String data_caricamento) {
 
 		HashMap<String, Integer> finale = new HashMap();
 		try {

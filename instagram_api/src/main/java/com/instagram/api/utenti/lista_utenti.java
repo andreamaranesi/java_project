@@ -7,8 +7,9 @@ public class lista_utenti {
 	public ArrayList<utente> utenti=new ArrayList();
 	
 	public lista_utenti(boolean metadati) {
-		if(metadati)
-			utenti.add(new utente());
+		utenti.add(new utente(true));
 	}
-	public lista_utenti() {}
+
+	public lista_utenti() {
+	}
 }

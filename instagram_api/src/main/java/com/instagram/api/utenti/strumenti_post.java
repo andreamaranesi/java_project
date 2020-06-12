@@ -4,19 +4,25 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
+import com.instagram.api.config_generali.dimensioni_media;
+import com.instagram.api.config_generali.dimensioni_px;
+import com.instagram.api.config_generali.opzioni_filtri;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 
 public abstract class strumenti_post extends manipola_data_instagram {
 
 	protected String ritorna_tipo_media(String media) {
-		if (media.contains("IMAGE"))
+		if(media.contains("IMAGE"))
 			return "IMMAGINE";
 		return media;
 	}
@@ -40,7 +46,8 @@ public abstract class strumenti_post extends manipola_data_instagram {
 			}
 
 		} catch (IOException e) {
-			shortcodes.pr(e.getLocalizedMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return hashmap;
 
@@ -48,13 +55,13 @@ public abstract class strumenti_post extends manipola_data_instagram {
 
 	private String filtra_hashtag(String hashtag) {
 
-		Pattern pattern = Pattern.compile("^([^,;\\#])*");
+		Pattern pattern = Pattern.compile("^([^,;\\#\n])*");
+		
 
 		try {
 			Matcher m = pattern.matcher(hashtag);
 			while (m.find()) {
 				return m.group();
-
 			}
 
 		} catch (Exception e) {
@@ -65,12 +72,13 @@ public abstract class strumenti_post extends manipola_data_instagram {
 		return "";
 
 	}
-
-	public ArrayList<String> hashtag(String descrizione) {
+	
+	protected ArrayList<String> hashtag(String descrizione) {
 		if (descrizione == null)
-			return new ArrayList();
+			return null;
 		else {
 			ArrayList<String> _hashtag = new ArrayList();
+		
 
 			int pos_hashtag = 0;
 
@@ -94,5 +102,4 @@ public abstract class strumenti_post extends manipola_data_instagram {
 
 		}
 	}
-
 }
