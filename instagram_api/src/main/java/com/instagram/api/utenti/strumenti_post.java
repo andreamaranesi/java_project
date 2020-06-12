@@ -16,7 +16,7 @@ import com.instagram.api.strumenti_rapidi.shortcodes;
 public abstract class strumenti_post extends manipola_data_instagram {
 
 	protected String ritorna_tipo_media(String media) {
-		if(media.contains("IMAGE"))
+		if (media.contains("IMAGE"))
 			return "IMMAGINE";
 		return media;
 	}
@@ -45,8 +45,6 @@ public abstract class strumenti_post extends manipola_data_instagram {
 		return hashmap;
 
 	}
-	
-	
 
 	private String filtra_hashtag(String hashtag) {
 

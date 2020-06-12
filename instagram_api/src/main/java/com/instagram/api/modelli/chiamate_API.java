@@ -33,7 +33,7 @@ public abstract class chiamate_API extends strumenti_comuni{
 	
 
 	@Value("${dati_lettura}")
-	protected String dati_lettura;
+	protected String path_dati_lettura;
 
 	String ottieni_utente = "https://graph.instagram.com/me?access_token={token}&fields=id,username";
 	String ottieni_media = "https://graph.instagram.com/{user-id}/media?access_token={token}&limit={limite}&after={after}";
