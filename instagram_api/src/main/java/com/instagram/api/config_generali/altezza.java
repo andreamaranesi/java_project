@@ -3,8 +3,8 @@ package com.instagram.api.config_generali;
 import com.instagram.api.eccezioni.cifra_errata;
 
 public class altezza {
-	double min = 0;
-	double max = Double.POSITIVE_INFINITY;
+	private double min = 0;
+	private double max = Double.POSITIVE_INFINITY;
 
 	public double getMin() {
 		return min;

@@ -8,7 +8,7 @@ import com.instagram.api.eccezioni.cifra_errata;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class opzioni_album {
 
-	int limite = 10;
+	private int limite = 10;
 
 	public int getLimite() {
 		return limite;
