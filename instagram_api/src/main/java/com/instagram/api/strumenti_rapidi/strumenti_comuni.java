@@ -12,11 +12,14 @@ import com.instagram.api.utenti.post;
 
 public abstract class strumenti_comuni {
 
-	/*
+	/**
+	 * Il seguente metodo restituisce una lista dinamica contente tutte le
+	 * occorrenze in una stringa, distinti dal @param separatore. Es. nome1,nome2 =>
+	 * <b>separatore=","</b> => [nome1,nome2]
 	 * 
 	 * @author Andrea Maranesi
 	 */
-	public ArrayList<String> cerca_valori(String stringa, String separatore) {
+	protected ArrayList<String> cerca_valori(String stringa, String separatore) {
 		ArrayList<String> valori_cercati = new ArrayList();
 		int i;
 		do {
@@ -28,7 +31,12 @@ public abstract class strumenti_comuni {
 		return valori_cercati;
 	}
 
-	/*
+	/**
+	 * 
+	 * verifica se il post è stato caricato prima o dopo una determinata @param
+	 * data_iniziale
+	 * 
+	 * @see #cerca_valori(String, String)
 	 * 
 	 * @author Alessio Pettinari
 	 */
@@ -52,38 +60,24 @@ public abstract class strumenti_comuni {
 					String[] data = data_corrente.split("-");
 					int l = data.length;
 					int prima_data = Integer.valueOf(data[0]);
-					int giorno = l > 1 ? prima_data : 1;
-					int mese = l > 1 ? Integer.valueOf(data[1]) : 1;
-					int anno = l > 1 ? Integer.valueOf(data[2]) : prima_data;
+					int giorno = l == 3 ? prima_data : 1;
+					int mese = l == 3 ? Integer.valueOf(data[1]) : l == 2 ? prima_data : 1;
+					int anno = l == 3 ? Integer.valueOf(data[2]) : l == 2 ? Integer.valueOf(data[1]) : prima_data;
 					Calendar data_1 = Calendar.getInstance();
 
 					data_1.set(anno, mese, giorno);
 
 					int valore = 0;
 
-					if (l > 1) {
-						shortcodes.pr(mese);
-						if (comparatore.contains(">")) {
+					if (comparatore.contains(">")) {
 
-							valore = data_2.compareTo(data_1);
+						valore = data_2.compareTo(data_1);
 
-						} else {
-							valore = data_1.compareTo(data_2);
-						}
-						if (valore < 0)
-							return false;
 					} else {
-						if (comparatore.contains(">")) {
-							if (anno_post <= anno) {
-								return false;
-							}
-
-						} else {
-							if (anno_post >= anno)
-
-								return false;
-						}
+						valore = data_1.compareTo(data_2);
 					}
+					if (valore <= 0)
+						return false;
 				}
 			}
 			return true;
@@ -93,7 +87,7 @@ public abstract class strumenti_comuni {
 		}
 	}
 
-	public String leggi(String path) throws eccezione {
+	protected String leggi(String path) throws eccezione {
 		String stringa = "";
 		try {
 			File file = new File(path);
