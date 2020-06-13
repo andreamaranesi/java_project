@@ -51,8 +51,9 @@ import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 
 /**
- * la classe seguente serve per generare delle statistiche sui post di ciascun {@link com.instagram.api.utenti.utente} ottenuti
- * tramite {@link #nuova_chiamata_API()} 
+ * la classe seguente serve per generare delle statistiche sui post di ciascun
+ * {@link com.instagram.api.utenti.utente} ottenuti tramite
+ * {@link #nuova_chiamata_API()}
  * 
  */
 @Controller
@@ -143,9 +144,10 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 	}
 
 	/**
-	 * Cerca gli hashtag presenti nel post e li inserisce all'interno dell'hashmap @param hashtag_trovati
-	 * Se @param hashtag_trovati contiene l'hashtag, allora aumenta di 1 il valore, altrimenti aggiunge
-	 * una nuova coppia chiave-valore (hashtag, 1)
+	 * Cerca gli hashtag presenti nel post e li inserisce all'interno
+	 * dell'hashmap @param hashtag_trovati Se @param hashtag_trovati contiene
+	 * l'hashtag, allora aumenta di 1 il valore, altrimenti aggiunge una nuova
+	 * coppia chiave-valore (hashtag, 1)
 	 * 
 	 * @see #analizza_hashtag(post, HashMap)
 	 */
@@ -160,12 +162,12 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				hashtag_trovati.put(hashtag, 1);
 		}
 	}
-		
-		
-	/** 
-	 * per ogni utente memorizza le dimensioni in MB o KB dei post, l'eventuale altezza e larghezza in px, 
-	 * un conteggio degli hashtag, per tutti i post che rispettano l'arco temporale scelto.
-	 * Infine crea da questi dati le statistiche (media dimensioni, media altezza, ecc..)
+
+	/**
+	 * per ogni utente memorizza le dimensioni in MB o KB dei post, l'eventuale
+	 * altezza e larghezza in px, un conteggio degli hashtag, per tutti i post che
+	 * rispettano l'arco temporale scelto. Infine crea da questi dati le statistiche
+	 * (media dimensioni, media altezza, ecc..)
 	 * 
 	 * 
 	 */
@@ -187,98 +189,111 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				lista.dati_statistiche.add(dati);
 				dati.setId((long) utente.getId());
 				dati.setUsername((String) utente.getUsername());
-				for (int i = 0; i < utente.posts.size() && i < filtri.getLimite_post(); i++) {
+				int contatore=0;
+				for (int i = 0; i < utente.posts.size() && contatore < filtri.getLimite_post(); i++) {
+					shortcodes.pr(utente.getUsername() + "; " + i);
 					post post = utente.posts.get(i);
 					post.filtrato = true;
 					String descrizione = (String) post.getDescrizione();
 
 					if (verifica_data(post, data_caricamento)) {
+						contatore++;
 						posts.add(post);
 						if (descrizione == null)
 							media_descrizione.add(0);
 						else {
-							analizza_hashtag(post, hashtag_trovati);
+							if (filtri.isHashtag())
+								analizza_hashtag(post, hashtag_trovati);
 
 							media_descrizione.add(descrizione.length());
 						}
-						if (((String) post.getTipo_post()).contains("CAROUSEL_ALBUM")) {
-							post.setAlbum(true);
-							int numero_post_album = 0;
+						if (filtri.isDimensione()) {
+							if (((String) post.getTipo_post()).contains("CAROUSEL_ALBUM")) {
+								post.setAlbum(true);
+								int numero_post_album = 0;
 
-							ArrayList<post> figli = ((ArrayList<post>) post.getChildren());
-							for (int j = 0; j < figli.size(); j++) {
-								post post_album = figli.get(j);
-								post_album.filtrato = true;
-								analizza_dimensioni_post(post_album, filtri, media_altezza, media_larghezza,
+								ArrayList<post> figli = ((ArrayList<post>) post.getChildren());
+								for (int j = 0; j < figli.size(); j++) {
+									post post_album = figli.get(j);
+									post_album.filtrato = true;
+									analizza_dimensioni_post(post_album, filtri, media_altezza, media_larghezza,
+											media_dimensioni);
+									shortcodes.pr("eccoci quaa");
+
+								}
+							} else {
+								analizza_dimensioni_post(post, filtri, media_altezza, media_larghezza,
 										media_dimensioni);
-								shortcodes.pr("eccoci quaa");
-
 							}
-						} else {
-							analizza_dimensioni_post(post, filtri, media_altezza, media_larghezza, media_dimensioni);
 						}
 
 					}
+
 				}
-				String altezza = genera_media_int(media_altezza) + "px";
-				String larghezza = genera_media_int(media_larghezza) + "px";
-				DecimalFormat formatta_dimensione = new DecimalFormat("#.###");
+				String descrizione = genera_media_int(media_descrizione) + " caratteri";
+				dati.setMedia_lung_descrizione(descrizione);
+				
+				if (filtri.isDimensione()) {
+					String altezza = genera_media_int(media_altezza) + "px";
+					String larghezza = genera_media_int(media_larghezza) + "px";
+					DecimalFormat formatta_dimensione = new DecimalFormat("#.###");
 
-				dati.setMedia_caricamenti(intervallo_caricamenti(posts));
+					dati.setMedia_caricamenti(intervallo_caricamenti(posts));
 
-				if (media_dimensioni.size() >= 2) {
-					DecimalFormat formatter = formatta_dimensione;
-					int numero_fasce = filtri.getNumero_fasce();
-					double min = Collections.min(media_dimensioni);
-					double max = Collections.max(media_dimensioni);
+					if (media_dimensioni.size() >= 2) {
+						DecimalFormat formatter = formatta_dimensione;
+						int numero_fasce = filtri.getNumero_fasce();
+						double min = Collections.min(media_dimensioni);
+						double max = Collections.max(media_dimensioni);
 
-					double media = (max - min);
+						double media = (max - min);
 
-					int c = 0;
-					do {
-						double fascia = media / numero_fasce;
-						double massimo_sinistro = fascia + min;
-						double minimo = min;
-						List<Double> trova_fascia_1 = media_dimensioni.stream()
-								.filter(valore -> valore >= minimo && valore < massimo_sinistro)
-								.collect(Collectors.toList());
-						dati_media dati_media1 = new dati_media();
-						dati_media1.tipo_dati = filtri.getTipo_dimensione();
-						dati_media1.setMin(formatter.format(minimo));
-						dati_media1.setMax(formatter.format(massimo_sinistro));
-						dati_media1.setConteggio(trova_fascia_1.size());
-						dati.dati_media.add(dati_media1);
-						double massimo_destro = massimo_sinistro + fascia;
-						List<Double> trova_fascia_2 = media_dimensioni.stream()
-								.filter(valore -> valore >= massimo_sinistro && valore <= massimo_destro)
-								.collect(Collectors.toList());
-						dati_media dati_media2 = new dati_media();
-						dati_media2.tipo_dati = filtri.getTipo_dimensione();
-						dati_media2.setMin(formatter.format(massimo_sinistro));
-						dati_media2.setMax(formatter.format(massimo_destro));
-						dati_media2.setConteggio(trova_fascia_2.size());
-						dati.dati_media.add(dati_media2);
+						int c = 0;
+						do {
+							double fascia = media / numero_fasce;
+							double massimo_sinistro = fascia + min;
+							double minimo = min;
+							List<Double> trova_fascia_1 = media_dimensioni.stream()
+									.filter(valore -> valore >= minimo && valore < massimo_sinistro)
+									.collect(Collectors.toList());
+							dati_media dati_media1 = new dati_media();
+							dati_media1.tipo_dati = filtri.getTipo_dimensione();
+							dati_media1.setMin(formatter.format(minimo));
+							dati_media1.setMax(formatter.format(massimo_sinistro));
+							dati_media1.setConteggio(trova_fascia_1.size());
+							dati.dati_media.add(dati_media1);
+							double massimo_destro = massimo_sinistro + fascia;
+							List<Double> trova_fascia_2 = media_dimensioni.stream()
+									.filter(valore -> valore >= massimo_sinistro && valore <= massimo_destro)
+									.collect(Collectors.toList());
+							dati_media dati_media2 = new dati_media();
+							dati_media2.tipo_dati = filtri.getTipo_dimensione();
+							dati_media2.setMin(formatter.format(massimo_sinistro));
+							dati_media2.setMax(formatter.format(massimo_destro));
+							dati_media2.setConteggio(trova_fascia_2.size());
+							dati.dati_media.add(dati_media2);
 
-						min += 2 * fascia;
-						c += 2;
-					} while (c < numero_fasce);
+							min += 2 * fascia;
+							c += 2;
+						} while (c < numero_fasce);
+					}
+
+					double dimensioni = genera_media_double(media_dimensioni); // 0.00330
+					String dimensione = formatta_dimensione.format(dimensioni); // 0,003
+					switch (filtri.getTipo_dimensione()) {
+					case 0:
+					default:
+						dimensione += " MB"; // 0,003 MB
+						break;
+					case 1:
+						dimensione += " KB"; // 0,003 KB
+						break;
+					}
+
+					dati.setDimensione_media(dimensione);
+					dati.setAltezza_media(altezza);
+					dati.setLarghezza_media(larghezza);
 				}
-
-				double dimensioni = genera_media_double(media_dimensioni); // 0.00330
-				String dimensione = formatta_dimensione.format(dimensioni); // 0,003
-				switch (filtri.getTipo_dimensione()) {
-				case 0:
-				default:
-					dimensione += " MB"; // 0,003 MB
-					break;
-				case 1:
-					dimensione += " KB"; // 0,003 KB
-					break;
-				}
-
-				dati.setDimensione_media(dimensione);
-				dati.setAltezza_media(altezza);
-				dati.setLarghezza_media(larghezza);
 				for (Map.Entry<String, Integer> valore : hashtag_trovati.entrySet()) {
 					hashtag hashtag = new hashtag();
 					hashtag.nome = valore.getKey();
@@ -297,11 +312,14 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 
 	/**
 	 * 
-	 * legge dal file locale dati_lettura.json i dati ottenuti in precedenza mediante una nuova chiamata API (@see {@link #nuova_chiamata_API()}), 
-	 * oppure effettua una nuova chiamata. In quest'ultimo caso memorizza nel file locale dati_lettura.json i dati così ottenuti.
+	 * legge dal file locale dati_lettura.json i dati ottenuti in precedenza
+	 * mediante una nuova chiamata API (@see {@link #nuova_chiamata_API()}), oppure
+	 * effettua una nuova chiamata. In quest'ultimo caso memorizza nel file locale
+	 * dati_lettura.json i dati così ottenuti.
 	 * 
-	 * Mediante il metodo @see {@link #genera_statistiche(lista_utenti, opzioni_statistiche, String)} restituisce un JSON
-	 * con tutte le statistiche ottenute dai vari post
+	 * Mediante il metodo @see
+	 * {@link #genera_statistiche(lista_utenti, opzioni_statistiche, String)}
+	 * restituisce un JSON con tutte le statistiche ottenute dai vari post
 	 * 
 	 * @param filtri
 	 * @param leggi_dafile_locale

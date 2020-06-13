@@ -4,16 +4,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.instagram.api.eccezioni.cifra_errata;
 
+/**
+ * 
+ * classe per memorizzare i filtri sulle statistiche passati tramite la chiamata GET <b>/statistiche</b>
+ * 
+ * @see com.instagram.api.modelli.chiamate_API
+ * @see com.instagram.api.modelli.statistiche
+ *
+ */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class opzioni_statistiche {
 
 	private boolean hashtag = true;
-	private boolean commenti = true;
 	private int limite_post = 20;
 	private boolean dimensione = true;
 	private int tipo_dimensione = 0;
 	private int numero_fasce = 4;
+
 
 	public int getNumero_fasce() {
 		return numero_fasce;
@@ -45,14 +54,6 @@ public class opzioni_statistiche {
 
 	public void setHashtag(boolean hashtag) {
 		this.hashtag = hashtag;
-	}
-
-	public boolean isCommenti() {
-		return commenti;
-	}
-
-	public void setCommenti(boolean commenti) {
-		this.commenti = commenti;
 	}
 
 	public int getLimite_post() {
