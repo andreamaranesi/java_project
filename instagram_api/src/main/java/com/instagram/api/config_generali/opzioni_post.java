@@ -5,7 +5,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.instagram.api.eccezioni.cifra_errata;
 import com.instagram.api.eccezioni.eccezione;
-
+/**
+ * 
+ * classe per memorizzare i filtri per i vari post
+ * @see com.instagram.api.modelli.chiamate_API
+ * @see com.instagram.api.modelli.filtri
+ *
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class opzioni_post {

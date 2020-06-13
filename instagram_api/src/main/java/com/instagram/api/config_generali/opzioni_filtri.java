@@ -7,6 +7,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.instagram.api.eccezioni.cifra_errata;
 
+/**
+ * 
+ * classe per memorizzare i filtri passati tramite il file config.json o tramite le chiamate GET
+ * @see com.instagram.api.modelli.chiamate_API
+ * @see com.instagram.api.modelli.filtri
+ *
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class opzioni_filtri {

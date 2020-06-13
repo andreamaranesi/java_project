@@ -13,16 +13,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.instagram.api.eccezioni.eccezione;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 
+/**
+ * 
+ * classe per inizializzare all'avvio del programma una nuova classe {@link com.instagram.api.config_generali.avvia_config}
+ *
+ */
 @Component
 public class avvia_config {
 
 	@Value("${opzioni_posts}")
 	private String path_filtri;
-	@Value("${statistiche}")
-	private String path_statistiche;
 	
 	@Bean (name="config_bean")
 	public configurazione nuovaConfigurazione() throws eccezione {
-		return new configurazione(path_filtri,path_statistiche);
+		return new configurazione(path_filtri);
 	}
 }

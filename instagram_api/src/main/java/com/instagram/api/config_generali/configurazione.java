@@ -12,17 +12,22 @@ import com.instagram.api.strumenti_rapidi.strumenti_comuni;
 import com.instagram.api.eccezioni.eccezione;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 
+
 public class configurazione extends strumenti_comuni {
 
 	public opzioni_filtri opzioni=new opzioni_filtri();
-	public opzioni_statistiche statistiche;
 
-	public configurazione(String path_opzioni, String path_statistiche) throws eccezione {
+	/**
+	 * 
+	 * inizializza la classe {@link #opzioni} con i filtri forniti nel file config.json
+	 * 
+	 * @param path_opzioni
+	 * @throws eccezione
+	 */
+	public configurazione(String path_opzioni) throws eccezione {
 		String leggi_json_opzioni = leggi(path_opzioni);
-		String leggi_json_statistiche = leggi(path_statistiche);
 		try {
 			opzioni = new ObjectMapper().readValue(leggi_json_opzioni, opzioni_filtri.class);
-			statistiche = new ObjectMapper().readValue(leggi_json_statistiche, opzioni_statistiche.class);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
