@@ -3,7 +3,9 @@ package com.instagram.api.modelli;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import java.io.PrintStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,16 +15,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.instagram.api.config_generali.*;
 import com.instagram.api.eccezioni.access_token_errato;
@@ -38,10 +50,14 @@ import com.instagram.api.utenti.lista_utenti;
 import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 
+/**
+ * la classe seguente serve per generare delle statistiche sui post di ciascun {@link com.instagram.api.utenti.utente} ottenuti
+ * tramite {@link #nuova_chiamata_API()} 
+ * 
+ */
 @Controller
 public class statistiche extends chiamate_API implements strumenti_statistiche {
 
-	
 	private long genera_media_long(ArrayList<Long> dati) {
 
 		if (dati.size() > 0) {
@@ -58,10 +74,10 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 
 		if (dati.size() >= 2) {
 			long somma = 0;
-			int c=0;
-			for(int i=0;i<dati.size();i+=2) {
-				if(i+1<dati.size()) {
-					somma+=(dati.get(i) - dati.get(i+1));
+			int c = 0;
+			for (int i = 0; i < dati.size(); i += 2) {
+				if (i + 1 < dati.size()) {
+					somma += (dati.get(i) - dati.get(i + 1));
 					c++;
 				}
 			}
@@ -69,6 +85,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 		}
 		return -1;
 	}
+
 	private int genera_media_int(ArrayList<Integer> dati) {
 
 		if (dati.size() > 0) {
@@ -92,10 +109,16 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 		return -1;
 	}
 
+	/**
+	 * ottiene dimensioni (in MB o KB) del post; l'altezza e la larghezza in px nel
+	 * caso in cui il post sia un'immagine. Aggiunge alle liste dinamiche
+	 * media_altezza, media_larghezza e media_dimensioni i valori così ottenuti.
+	 * 
+	 */
 	@Override
 	public void analizza_dimensioni_post(post post, opzioni_statistiche filtri, ArrayList<Integer> media_altezza,
 			ArrayList<Integer> media_larghezza, ArrayList<Double> media_dimensioni) {
-		boolean VIDEO = ((String)post.getTipo_post()).contains("VIDEO") ? true : false;
+		boolean VIDEO = ((String) post.getTipo_post()).contains("VIDEO") ? true : false;
 		int tipo_dimensioni = filtri.getTipo_dimensione();
 
 		HashMap<String, Object> getDimensioni = post.getDimensioni(post.getMedia_url(), VIDEO);
@@ -119,6 +142,13 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 		media_dimensioni.add(dimensione);
 	}
 
+	/**
+	 * Cerca gli hashtag presenti nel post e li inserisce all'interno dell'hashmap @param hashtag_trovati
+	 * Se @param hashtag_trovati contiene l'hashtag, allora aumenta di 1 il valore, altrimenti aggiunge
+	 * una nuova coppia chiave-valore (hashtag, 1)
+	 * 
+	 * @see #analizza_hashtag(post, HashMap)
+	 */
 	@Override
 	public void analizza_hashtag(post post, HashMap<String, Integer> hashtag_trovati) {
 
@@ -130,9 +160,16 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				hashtag_trovati.put(hashtag, 1);
 		}
 	}
-
-
-	private String genera_statistiche(lista_utenti lista_utenti, opzioni_statistiche filtri, String data_caricamento) {
+		
+		
+	/** 
+	 * per ogni utente memorizza le dimensioni in MB o KB dei post, l'eventuale altezza e larghezza in px, 
+	 * un conteggio degli hashtag, per tutti i post che rispettano l'arco temporale scelto.
+	 * Infine crea da questi dati le statistiche (media dimensioni, media altezza, ecc..)
+	 * 
+	 * 
+	 */
+	public String genera_statistiche(lista_utenti lista_utenti, opzioni_statistiche filtri, String data_caricamento) {
 
 		lista_statistiche lista = new lista_statistiche();
 		try {
@@ -145,16 +182,15 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				ArrayList<Double> media_dimensioni = new ArrayList();
 				HashMap<String, Integer> hashtag_trovati = new HashMap();
 
-				ArrayList<post> posts=new ArrayList();
+				ArrayList<post> posts = new ArrayList();
 				dati_statistiche dati = new dati_statistiche();
 				lista.dati_statistiche.add(dati);
 				dati.setId((long) utente.getId());
 				dati.setUsername((String) utente.getUsername());
-				int numero_post = 0;
-				for (int i = 0; i < utente.posts.size() && numero_post < filtri.getLimite_post(); i++) {
+				for (int i = 0; i < utente.posts.size() && i < filtri.getLimite_post(); i++) {
 					post post = utente.posts.get(i);
 					post.filtrato = true;
-					String descrizione = (String)post.getDescrizione();
+					String descrizione = (String) post.getDescrizione();
 
 					if (verifica_data(post, data_caricamento)) {
 						posts.add(post);
@@ -165,11 +201,11 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 
 							media_descrizione.add(descrizione.length());
 						}
-						if (((String)post.getTipo_post()).contains("CAROUSEL_ALBUM")) {
+						if (((String) post.getTipo_post()).contains("CAROUSEL_ALBUM")) {
 							post.setAlbum(true);
 							int numero_post_album = 0;
 
-							ArrayList<post> figli=((ArrayList<post>) post.getChildren());
+							ArrayList<post> figli = ((ArrayList<post>) post.getChildren());
 							for (int j = 0; j < figli.size(); j++) {
 								post post_album = figli.get(j);
 								post_album.filtrato = true;
@@ -189,7 +225,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				DecimalFormat formatta_dimensione = new DecimalFormat("#.###");
 
 				dati.setMedia_caricamenti(intervallo_caricamenti(posts));
-				
+
 				if (media_dimensioni.size() >= 2) {
 					DecimalFormat formatter = formatta_dimensione;
 					int numero_fasce = filtri.getNumero_fasce();
@@ -207,7 +243,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 								.filter(valore -> valore >= minimo && valore < massimo_sinistro)
 								.collect(Collectors.toList());
 						dati_media dati_media1 = new dati_media();
-						dati_media1.tipo_dati=filtri.getTipo_dimensione();
+						dati_media1.tipo_dati = filtri.getTipo_dimensione();
 						dati_media1.setMin(formatter.format(minimo));
 						dati_media1.setMax(formatter.format(massimo_sinistro));
 						dati_media1.setConteggio(trova_fascia_1.size());
@@ -217,7 +253,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 								.filter(valore -> valore >= massimo_sinistro && valore <= massimo_destro)
 								.collect(Collectors.toList());
 						dati_media dati_media2 = new dati_media();
-						dati_media2.tipo_dati=filtri.getTipo_dimensione();
+						dati_media2.tipo_dati = filtri.getTipo_dimensione();
 						dati_media2.setMin(formatter.format(massimo_sinistro));
 						dati_media2.setMax(formatter.format(massimo_destro));
 						dati_media2.setConteggio(trova_fascia_2.size());
@@ -228,12 +264,12 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 					} while (c < numero_fasce);
 				}
 
-				double dimensioni=genera_media_double(media_dimensioni); //0.00330
-				String dimensione = formatta_dimensione.format(dimensioni); //0,003
+				double dimensioni = genera_media_double(media_dimensioni); // 0.00330
+				String dimensione = formatta_dimensione.format(dimensioni); // 0,003
 				switch (filtri.getTipo_dimensione()) {
 				case 0:
 				default:
-					dimensione += " MB"; //0,003 MB
+					dimensione += " MB"; // 0,003 MB
 					break;
 				case 1:
 					dimensione += " KB"; // 0,003 KB
@@ -249,7 +285,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 					hashtag.setConteggio(valore.getValue());
 					dati.hashtag.add(hashtag);
 				}
-				
+
 			}
 			return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(lista);
 
@@ -259,11 +295,28 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 		return "{\"errore\":\"true\"}";
 	}
 
+	/**
+	 * 
+	 * legge dal file locale dati_lettura.json i dati ottenuti in precedenza mediante una nuova chiamata API (@see {@link #nuova_chiamata_API()}), 
+	 * oppure effettua una nuova chiamata. In quest'ultimo caso memorizza nel file locale dati_lettura.json i dati così ottenuti.
+	 * 
+	 * Mediante il metodo @see {@link #genera_statistiche(lista_utenti, opzioni_statistiche, String)} restituisce un JSON
+	 * con tutte le statistiche ottenute dai vari post
+	 * 
+	 * @param filtri
+	 * @param leggi_dafile_locale
+	 * @param data_caricamento
+	 * @return JSON delle statistiche
+	 * @throws JsonProcessingException
+	 * @throws access_token_errato
+	 * @throws eccezione
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/statistiche", produces = "application/json")
 	@ResponseBody
 	public Object ottieni_statistiche(@RequestBody opzioni_statistiche filtri,
 			@RequestParam(value = "leggi_locale", defaultValue = "true") boolean leggi_dafile_locale,
-			@RequestParam(value = "data_caricamento", defaultValue = "") String data_caricamento) throws JsonProcessingException, access_token_errato, eccezione {
+			@RequestParam(value = "data_caricamento", defaultValue = "") String data_caricamento)
+			throws JsonProcessingException, access_token_errato, eccezione {
 
 		// leggi da il file ./dati-lettura.json
 		if (leggi_dafile_locale) {
@@ -273,7 +326,8 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				return genera_statistiche(new ObjectMapper().readValue(json, lista_utenti.class), filtri,
 						data_caricamento);
 			} catch (Exception e) {
-				throw new eccezione("Errore nel file locale dati_lettura.json. Verificarne l'esistenza o prova a fare una nuova chiamata");
+				throw new eccezione(
+						"Errore nel file locale dati_lettura.json. Verificarne l'esistenza o prova a fare una nuova chiamata");
 			}
 
 		} else {
@@ -288,7 +342,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 			}
 			return genera_statistiche(lista_utenti, filtri, data_caricamento);
 		}
-		
+
 	}
 
 	@Override
@@ -309,12 +363,12 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				return "ogni giorno";
 			else if (media_giorni < 14)
 				return "ogni settimana";
-			else if(media_giorni<30)
-				return "ogni " + media_giorni/7  + " settimane";
-			else if(media_giorni>27 && media_giorni<31)
+			else if (media_giorni < 30)
+				return "ogni " + media_giorni / 7 + " settimane";
+			else if (media_giorni > 27 && media_giorni < 31)
 				return "ogni mese";
 			else
-				return "ogni " + media_giorni/30 + " mesi";
+				return "ogni " + media_giorni / 30 + " mesi";
 		}
 		return null;
 	}

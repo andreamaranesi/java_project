@@ -1,17 +1,38 @@
 package com.instagram.api.modelli;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.instagram.api.config_generali.*;
 import com.instagram.api.eccezioni.access_token_errato;
@@ -24,13 +45,19 @@ import com.instagram.api.strumenti_rapidi.shortcodes;
 import com.instagram.api.utenti.lista_utenti;
 import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
+
+/**
+ * la classe seguente serve per effettuare le chiamate API necessarie per
+ * ottenere id utente, username utente e tutti i relativi media, oltre che al
+ * numero di follower
+ *
+ */
 @Controller
-public abstract class chiamate_API extends strumenti_comuni{
+public abstract class chiamate_API extends strumenti_comuni {
 
 	@Autowired
 	@Qualifier("config_bean")
-	public configurazione config;
-	
+	protected configurazione config;
 
 	@Value("${dati_lettura}")
 	protected String path_dati_lettura;
@@ -42,13 +69,33 @@ public abstract class chiamate_API extends strumenti_comuni{
 
 	String ottieni_post = "https://graph.instagram.com/{media-id}?fields=media_url,caption,media_type,timestamp&access_token={token}";
 
-	String ottieni_html_post = "https://api.instagram.com/oembed?url=https://www.instagram.com/p/{media-id}";
+	String ottieni_html_utente = "https://instagram.com/{username}";
 	String ottieni_post_album = "https://graph.instagram.com/{media-id}?fields=media_url,media_type&access_token={token}";
 
+	/**
+	 * ottiene con un semplice parsing dell'html della pagina instagram di un utente, del tipo
+	 * instagram.com/{username}, tutti i follower formattati. Es. 1,3m per un numero di follower
+	 * maggiore o uguale di 1.300.000
+	 * 
+	 */
 	
-	
-	@SuppressWarnings("unchecked")
-	private void ottieni_post(Object user_album, String access_token, long id, boolean album) throws eccezione {
+	public String numero_follower(String username) {
+		RestTemplate restTemplate = new RestTemplate();
+		String json = restTemplate.getForObject(ottieni_html_utente, String.class, username);
+		String class_da_trovare = "<meta property=\"og:description\" content=\"";
+		String fine_tag = " ";
+		int trova_span = json.indexOf(class_da_trovare);
+		String html = json.substring(trova_span + class_da_trovare.length(), json.length());
+		return html.substring(0, html.indexOf(fine_tag));
+	}
+
+	/**
+	 * ottiene per ogni post, od ogni figlio di un album, le relative informazioni,
+	 * ossia id, media_url, descrizione, data di caricamento ecc..
+	 * 
+	 * 
+	 */
+	public void ottieni_post(Object user_album, String access_token, long id, boolean album) throws eccezione {
 		RestTemplate restTemplate = new RestTemplate();
 		String json = restTemplate.getForObject(album ? ottieni_post_album : ottieni_post, String.class, id,
 				access_token);
@@ -73,12 +120,28 @@ public abstract class chiamate_API extends strumenti_comuni{
 		}
 	}
 
-	protected void verifica_get_data_caricamento(String data_caricamento) throws stringa_errata {
-		if (verifica_regex("[^0-9\\-and\\s]", data_caricamento))
+	/**
+	 * verifica se la stringa data_caricamento passata col metodo GET /dati e' valida
+	 * Es: >2-9-2019 and <10-11-2019 è un filtro valido Es: 2-9 && <2020 e' un filtro
+	 * invalido
+	 * 
+	 */
+	public void verifica_get_data_caricamento(String data_caricamento) throws stringa_errata {
+		if (verifica_regex("[^0-9\\-and\\s><]", data_caricamento))
 			throw new stringa_errata("data_caricamento=" + data_caricamento + " è una chiamata errata");
 	}
 
-	protected boolean verifica_regex(String regex, String tester) {
+	/**
+	 * verifica se la stringa passata è valida secondo una determinata espressione
+	 * 
+	 * @param regex
+	 * 
+	 * @param tester
+	 * 
+	 * @return true se viene trovato un match; false altrimenti
+	 */
+	
+	public boolean verifica_regex(String regex, String tester) {
 		Pattern pattern = Pattern.compile(regex);
 
 		try {
@@ -95,7 +158,15 @@ public abstract class chiamate_API extends strumenti_comuni{
 		return false;
 	}
 
-	private void iterazione_ottieni_media(post album, String access_token, String after, int rimanenti, long media_id)
+	
+	/**
+	 * ottiene i figli di un album con delle chiamate ricorsive
+	 * 
+	 * @see #ottieni_post
+	 * 
+	 */
+	
+	public void iterazione_ottieni_media(post album, String access_token, String after, int rimanenti, long media_id)
 			throws eccezione {
 		RestTemplate restTemplate = new RestTemplate();
 		String json = restTemplate.getForObject(ottieni_album_media, String.class, media_id, access_token, rimanenti,
@@ -123,7 +194,14 @@ public abstract class chiamate_API extends strumenti_comuni{
 		}
 	}
 
-	private void iterazione_ottieni_media(utente user, String access_token, String after, int rimanenti)
+	/**
+	 * ottiene i figli di un album con delle chiamate ricorsive
+	 * 
+	 * @see #ottieni_post
+	 * 
+	 */
+	
+	public void iterazione_ottieni_media(utente user, String access_token, String after, int rimanenti)
 			throws eccezione {
 		RestTemplate restTemplate = new RestTemplate();
 		String json = restTemplate.getForObject(ottieni_media, String.class, user.getId(), access_token, rimanenti,
@@ -149,7 +227,15 @@ public abstract class chiamate_API extends strumenti_comuni{
 			throw new eccezione("Si è verificato un errore durante il recupero dei post");
 		}
 	}
-
+	
+	/**
+	 * ottiene i dati dell'utente e dei relatici media a partire dagli access_token specificati nel file locale config.json
+	 * 
+	 * @return una nuova <b>lista_utenti</b>
+	 * @throws JsonProcessingException
+	 * @throws access_token_errato
+	 * @throws eccezione
+	 */
 	public lista_utenti nuova_chiamata_API() throws JsonProcessingException, access_token_errato, eccezione {
 		lista_utenti lista_utenti = new lista_utenti();
 
@@ -165,9 +251,10 @@ public abstract class chiamate_API extends strumenti_comuni{
 			try {
 				json = restTemplate.getForObject(ottieni_utente, String.class, access_token);
 			} catch (Exception e) {
-				throw new access_token_errato("Access token " + access_token + " errato");
+				throw new access_token_errato("Access token " + access_token + " errato o connessione assente");
 			}
 			user = new ObjectMapper().readValue(json, utente.class);
+			user.follower = this.numero_follower((String) user.getUsername());
 
 			lista_utenti.utenti.add(user);
 			iterazione_ottieni_media(user, access_token, "", config.opzioni.getLimite());

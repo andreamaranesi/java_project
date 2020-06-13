@@ -11,7 +11,7 @@ import com.instagram.api.eccezioni.cifra_errata;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class opzioni_filtri {
 
-	private int limite = 10;
+	private int limite = 50;
 
 	@JsonProperty("album")
 	public opzioni_album opzioni_album = new opzioni_album();

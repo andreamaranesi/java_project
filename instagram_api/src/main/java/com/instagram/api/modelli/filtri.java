@@ -46,13 +46,24 @@ import com.instagram.api.utenti.lista_utenti;
 import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 
+/**
+ * la classe seguente serve per effettuare dei filtri sui post di ciascun {@link com.instagram.api.utenti.utente} ottenuti
+ * tramite {@link #nuova_chiamata_API()} 
+ * 
+ */
 @Controller
 public class filtri extends chiamate_API implements strumenti_filtri {
 
-	@Autowired
-	@Qualifier("config_bean")
-	private configurazione config;
-
+	/**
+	 * analizza le dimensioni (in MB o KB) di un post.
+	 * Se il post è un'immagine analizza anche l'altezza e la larghezza in px
+	 * 
+	 * @see com.instagram.api.utenti.strumenti_post#getDimensioni(String, boolean)
+	 * @return true se le dimensioni in MB o KB sono state rispettate, così come le dimensioni in px dell'altezza
+	 * e della larghezza, nel caso in cui il post sia un'immagine.
+	 * 
+	 */
+	@Override
 	public boolean analizza_dimensioni(post post, opzioni_filtri filtri) {
 		boolean VIDEO = ((String) post.getTipo_post()).contains("VIDEO") ? true : false;
 		int tipo_dimensioni = filtri.opzioni_post.getTipo_dati();
@@ -86,7 +97,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 			if (dimensione >= min && dimensione <= max) {
 				if (rest_dimensioni) {
 					DecimalFormat formatta_dimensione = new DecimalFormat("#.###");
-					String dim = formatta_dimensione.format(dimensione); 
+					String dim = formatta_dimensione.format(dimensione);
 					dim += tipo_dimensioni == 0 ? " MB" : tipo_dimensioni == 1 ? " KB" : "--";
 					post.setAltezza(altezza);
 					post.setLarghezza(larghezza);
@@ -109,8 +120,23 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 		}
 		return false;
 	}
-
-	private String filtra_dati(lista_utenti lista_utenti, opzioni_filtri filtri, String hashtag,
+	
+	/**
+	 * 
+	 * metodo per verificare i vari post e i figli dell'album a seconda dei filtri passati dall'utente
+	 * 
+	 * @see #verifica_descrizione(String, lunghezza_desc)
+	 * @see #verifica_hashtag(post, String)
+	 * @see com.instagram.api.strumenti_rapidi.strumenti_comuni#verifica_data(post, String)
+	 * @see #analizza_dimensioni(post, opzioni_filtri)
+	 * @param lista_utenti
+	 * @param filtri
+	 * @param hashtag
+	 * @param data_caricamento
+	 * @return JSON dati filtrati
+	 * @throws eccezione
+	 */
+	public String filtra_dati(lista_utenti lista_utenti, opzioni_filtri filtri, String hashtag,
 			String data_caricamento) throws eccezione {
 
 		try {
@@ -121,12 +147,11 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 				int numero_post = 0;
 				for (int i = 0; i < utente.posts.size() && numero_post < filtri.getLimite(); i++) {
 					post post = utente.posts.get(i);
-					post.filtrato = true;
+					post.filtrato = true;	
 					String descrizione = (String) post.getDescrizione();
 					lunghezza_desc dimensioni = filtri.opzioni_post.lunghezza_desc;
-					if (verifica_descrizione(descrizione, dimensioni) && verifica_hashtag(post, hashtag)
+					if ((!filtri.opzioni_post.descrizione || verifica_descrizione(descrizione, dimensioni)) && verifica_hashtag(post, hashtag)
 							&& verifica_data(post, data_caricamento)) {
-						post.restituisci_desc = filtri.opzioni_post.descrizione;
 						if (((String) post.getTipo_post()).contains("CAROUSEL_ALBUM")) {
 							ArrayList<post> post_album_filtrati = new ArrayList();
 							post.setAlbum(true);
@@ -137,7 +162,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 									&& numero_post_album < filtri.opzioni_album.getLimite(); j++) {
 								post post_album = figli.get(j);
 								post_album.filtrato = true;
-								if (analizza_dimensioni(post_album, filtri)) {
+								if ((!filtri.opzioni_post.analisi_media || analizza_dimensioni(post_album, filtri))) {
 									post_album_filtrati.add(post_album);
 									numero_post_album++;
 								}
@@ -147,11 +172,10 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 							post_filtrati.add(post);
 							post.setChildren(post_album_filtrati);
 							post.setAlbum(true);
-							// post_filtrati.add(post);
 						} else {
 							boolean VIDEO = ((String) post.getTipo_post()).contains("VIDEO") ? true : false;
 
-							if (analizza_dimensioni(post, filtri)) {
+							if ((!filtri.opzioni_post.analisi_media || analizza_dimensioni(post, filtri))) {
 
 								numero_post++;
 								post_filtrati.add(post);
@@ -172,6 +196,11 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 		}
 	}
 
+	/**
+	 * verifica se l'hashtag passato con la chiamata GET/dati è presente nella descrizione del singolo post
+	 * 
+	 * @see #cerca_valori(String, String)
+	 */
 	@Override
 	public boolean verifica_hashtag(post post, String hashtag) {
 		if (hashtag.isEmpty())
@@ -184,7 +213,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 			return true;
 		hashtag = hashtag.trim();
 		ArrayList<String> hashtag_da_cercare = new ArrayList();
-		hashtag_da_cercare = cerca_valori(hashtag, separatore); //da finire e rivedere cerca_valori
+		hashtag_da_cercare = cerca_valori(hashtag, separatore);
 
 		for (String singolo_hashtag : hashtag_da_cercare) {
 			if (_hashtag.contains(singolo_hashtag))
@@ -194,6 +223,11 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 		return false;
 	}
 
+	/*
+	 * verifica se la descrizione del post ha un numero di caratteri compresi tra quelli minimi e massimi 
+	 * scelti dagli utenti nei filtri
+	 * 
+	 */
 	@Override
 	public boolean verifica_descrizione(String descrizione, lunghezza_desc dimensioni) {
 		if (descrizione == null) {
@@ -208,12 +242,36 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 
 	}
 
-	
-	protected void verifica_get_hashtag(String hashtag_richiesti) throws stringa_errata {
+	/**
+	 * verifica se la stringa hashtag passata col metodo GET /dati e' valida
+	 * Es: sea||italy è valido
+	 * Es: #sea è un filtro invalido
+	 * 
+	 * @see #verifica_regex(String, String)
+	 * 
+	 */
+	public void verifica_get_hashtag(String hashtag_richiesti) throws stringa_errata {
 		if (verifica_regex("[#]", hashtag_richiesti))
 			throw new stringa_errata("hashtag=" + hashtag_richiesti + " non può contenere il carattere #");
 	}
 
+	/**
+	 * 
+	 * legge dal file locale dati_lettura.json i dati ottenuti in precedenza mediante una nuova chiamata API (@see {@link #nuova_chiamata_API()}), 
+	 * oppure effettua una nuova chiamata. In quest'ultimo caso memorizza nel file locale dati_lettura.json i dati così ottenuti.
+	 * 
+	 * Restuisce tutti i post conformi ai filtri scelti.
+	 * 
+	 * @param _filtri
+	 * @param leggi_dafile_locale
+	 * @param hashtag
+	 * @param data_caricamento
+	 * @return JSON dati filtrati
+	 * @throws JsonProcessingException
+	 * @throws access_token_errato
+	 * @throws eccezione
+	 * @throws stringa_errata
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/dati", produces = "application/json")
 	@ResponseBody
 	public Object ottieni_filtri(@RequestBody opzioni_filtri _filtri,
@@ -233,18 +291,18 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 				return filtra_dati(new ObjectMapper().readValue(json, lista_utenti.class), _filtri, hashtag,
 						data_caricamento);
 
-			} catch (Exception e) {				
+			} catch (Exception e) {
 
-				throw new eccezione("Errore nel file locale dati_lettura.json. Verificarne l'esistenza o prova a fare una nuova chiamata");
-				
-			} 
+				throw new eccezione(
+						"Errore nel file locale dati_lettura.json. Verificarne l'esistenza o prova a fare una nuova chiamata");
+
+			}
 		} else {
 			// leggi da la variabile locale config.json
 			lista_utenti lista_utenti = nuova_chiamata_API();
 
 			try {
-				new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(new File("./dati_lettura.json"),
-						lista_utenti);
+				new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(new File(path_dati_lettura), lista_utenti);
 			} catch (IOException e) {
 
 			}
@@ -252,11 +310,6 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 			return filtra_dati(lista_utenti, _filtri, hashtag, data_caricamento);
 		}
 
-	}
-
-	@Override
-	public boolean verifica_data(post post, String data_iniziale) {
-		return false;
 	}
 
 }
