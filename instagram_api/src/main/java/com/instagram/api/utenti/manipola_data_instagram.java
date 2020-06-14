@@ -45,7 +45,7 @@ public abstract class manipola_data_instagram {
 	 * 
 	 * @param data_caricamento
 	 */
-	protected HashMap<String, Integer> manipola_data(String data_caricamento) {
+	public HashMap<String, Integer> manipola_data(String data_caricamento) {
 
 		HashMap<String, Integer> finale = new HashMap();
 		try {
