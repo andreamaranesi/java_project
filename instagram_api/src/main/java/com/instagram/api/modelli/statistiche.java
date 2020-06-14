@@ -193,7 +193,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				dati.setUsername((String) utente.getUsername());
 				int contatore=0;
 				for (int i = 0; i < utente.posts.size() && contatore < filtri.getLimite_post(); i++) {
-					shortcodes.pr(utente.getUsername() + "; " + i);
+
 					post post = utente.posts.get(i);
 					post.filtrato = true;
 					String descrizione = (String) post.getDescrizione();
@@ -220,7 +220,6 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 									post_album.filtrato = true;
 									analizza_dimensioni_post(post_album, filtri, media_altezza, media_larghezza,
 											media_dimensioni);
-									shortcodes.pr("eccoci quaa");
 
 								}
 							} else {
