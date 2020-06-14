@@ -1,6 +1,7 @@
 package com.instagram.api.config_generali;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,7 @@ public class avvia_config {
 	private String path_filtri;
 	
 	@Bean (name="config_bean")
-	public configurazione nuovaConfigurazione() throws eccezione {
+	public configurazione nuovaConfigurazione() throws eccezione, FileNotFoundException {
 		return new configurazione(path_filtri);
 	}
 }

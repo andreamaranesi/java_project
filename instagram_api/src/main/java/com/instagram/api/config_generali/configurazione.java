@@ -1,6 +1,7 @@
 package com.instagram.api.config_generali;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +24,9 @@ public class configurazione extends strumenti_comuni {
 	 * 
 	 * @param path_opzioni
 	 * @throws eccezione
+	 * @throws FileNotFoundException 
 	 */
-	public configurazione(String path_opzioni) throws eccezione {
+	public configurazione(String path_opzioni) throws eccezione, FileNotFoundException {
 		String leggi_json_opzioni = leggi(path_opzioni);
 		try {
 			opzioni = new ObjectMapper().readValue(leggi_json_opzioni, opzioni_filtri.class);

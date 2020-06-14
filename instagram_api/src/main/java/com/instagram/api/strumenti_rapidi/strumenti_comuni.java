@@ -87,7 +87,7 @@ public abstract class strumenti_comuni {
 		}
 	}
 
-	protected String leggi(String path) throws eccezione {
+	protected String leggi(String path) throws eccezione, FileNotFoundException {
 			String stringa = "";
 		File file = new File(path);
 		if (!file.exists())

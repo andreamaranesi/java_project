@@ -2,6 +2,7 @@ package com.instagram.api.modelli;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
@@ -39,6 +40,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.instagram.api.config_generali.*;
 import com.instagram.api.eccezioni.access_token_errato;
 import com.instagram.api.eccezioni.eccezione;
+import com.instagram.api.eccezioni.stringa_errata;
 import com.instagram.api.ricorsione_post.id_media;
 import com.instagram.api.ricorsione_post.media;
 import com.instagram.api.statistiche.dati_media;
@@ -328,14 +330,17 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 	 * @throws JsonProcessingException
 	 * @throws access_token_errato
 	 * @throws eccezione
+	 * @throws FileNotFoundException 
+	 * @throws stringa_errata 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/statistiche", produces = "application/json")
 	@ResponseBody
 	public Object ottieni_statistiche(@RequestBody opzioni_statistiche filtri,
 			@RequestParam(value = "leggi_locale", defaultValue = "true") boolean leggi_dafile_locale,
 			@RequestParam(value = "data_caricamento", defaultValue = "") String data_caricamento)
-			throws JsonProcessingException, access_token_errato, eccezione {
+			throws JsonProcessingException, access_token_errato, eccezione, FileNotFoundException, stringa_errata {
 
+		verifica_get_data_caricamento(data_caricamento);
 		// leggi da il file ./dati-lettura.json
 		if (leggi_dafile_locale) {
 			String json = "";

@@ -2,6 +2,7 @@ package com.instagram.api.modelli;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
@@ -271,6 +272,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	 * @throws access_token_errato
 	 * @throws eccezione
 	 * @throws stringa_errata
+	 * @throws FileNotFoundException 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/dati", produces = "application/json")
 	@ResponseBody
@@ -278,7 +280,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 			@RequestParam(value = "leggi_locale", defaultValue = "false") boolean leggi_dafile_locale,
 			@RequestParam(value = "hashtag", defaultValue = "") String hashtag,
 			@RequestParam(value = "data_caricamento", defaultValue = "") String data_caricamento)
-			throws JsonProcessingException, access_token_errato, eccezione, stringa_errata {
+			throws JsonProcessingException, access_token_errato, eccezione, stringa_errata, FileNotFoundException {
 		verifica_get_hashtag(hashtag);
 		verifica_get_data_caricamento(data_caricamento);
 
