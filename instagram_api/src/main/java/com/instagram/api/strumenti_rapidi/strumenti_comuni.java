@@ -19,7 +19,7 @@ public abstract class strumenti_comuni {
 	 * 
 	 * @author Andrea Maranesi
 	 */
-	protected ArrayList<String> cerca_valori(String stringa, String separatore) {
+	public ArrayList<String> cerca_valori(String stringa, String separatore) {
 		ArrayList<String> valori_cercati = new ArrayList();
 		int i;
 		do {
@@ -33,7 +33,7 @@ public abstract class strumenti_comuni {
 
 	/**
 	 * 
-	 * verifica se il post è stato caricato prima o dopo una determinata @param
+	 * verifica se il post รจ stato caricato prima o dopo una determinata @param
 	 * data_iniziale
 	 * 
 	 * @see #cerca_valori(String, String)
@@ -88,17 +88,13 @@ public abstract class strumenti_comuni {
 	}
 
 	protected String leggi(String path) throws eccezione {
-		String stringa = "";
-		try {
-			File file = new File(path);
-			if (!file.exists())
-				throw new eccezione("Il file nella posizione " + path + " non esiste");
-			Scanner scanner = new Scanner(new File(path));
-			while (scanner.hasNext()) {
-				stringa += scanner.next();
-			}
-		} catch (Exception e) {
-
+			String stringa = "";
+		File file = new File(path);
+		if (!file.exists())
+			throw new eccezione("Il file nella posizione " + path + " non esiste");
+		Scanner scanner = new Scanner(new File(path));
+		while (scanner.hasNext()) {
+			stringa += scanner.next();
 		}
 		return stringa;
 	}
