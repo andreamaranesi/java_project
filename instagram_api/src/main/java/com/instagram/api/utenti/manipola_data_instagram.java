@@ -4,6 +4,13 @@ import java.util.HashMap;
 
 import com.instagram.api.strumenti_rapidi.shortcodes;
 
+/**
+ * consente di effettuare operazioni a partire dall'attributo ("timestamp") che contiene al suo interno la 
+ * data di caricamento del post di Instagram
+ * 
+ * @author Andrea Maranesi
+ *
+ */
 public abstract class manipola_data_instagram {
 	
 	/**

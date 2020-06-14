@@ -19,6 +19,11 @@ import com.instagram.api.config_generali.dimensioni_px;
 import com.instagram.api.config_generali.opzioni_filtri;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 
+/**
+ * 
+ * La classe consente di effettuare operazioni sul post ({@link com.instagram.api.utenti.post})
+ *
+ */
 public abstract class strumenti_post extends manipola_data_instagram {
 
 	protected String ritorna_tipo_media(String media) {
@@ -27,6 +32,15 @@ public abstract class strumenti_post extends manipola_data_instagram {
 		return media;
 	}
 
+	/**
+	 * 
+	 * consente di memorizzare all'interno di un'hashmap altezza e larghezza (in px) del post, se quest'ultimo è un'immagine,
+	 * oltre che la dimensione in MB o KB dello stesso
+	 * 
+	 * @param media_url
+	 * @param VIDEO
+	 * @return
+	 */
 	public HashMap<String, Object> getDimensioni(String media_url, boolean VIDEO) {
 		HashMap<String, Object> hashmap = new HashMap();
 
@@ -46,12 +60,12 @@ public abstract class strumenti_post extends manipola_data_instagram {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return hashmap;
 
 	}
+	
 
 	private String filtra_hashtag(String hashtag) {
 
@@ -73,7 +87,12 @@ public abstract class strumenti_post extends manipola_data_instagram {
 
 	}
 	
-	protected ArrayList<String> hashtag(String descrizione) {
+	/**
+	 * consente di trovare gli hashtag presenti all'interno della descrizione di un post
+	 * 
+	 * @param descrizione
+	 */
+	public ArrayList<String> hashtag(String descrizione) {
 		if (descrizione == null)
 			return null;
 		else {
@@ -83,6 +102,7 @@ public abstract class strumenti_post extends manipola_data_instagram {
 			int pos_hashtag = 0;
 
 			while (pos_hashtag != -1) {
+				descrizione=descrizione.trim();
 				pos_hashtag = descrizione.indexOf("#");
 
 				if (pos_hashtag != -1) {
