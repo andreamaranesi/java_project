@@ -1,0 +1,35 @@
+{
+	"limite": 140,
+	"post": {
+		"tipo_dati": 0,
+		"dimensioni": {
+			"min": 0.100,
+			"max": 100
+		},
+		"lunghezza_desc": {
+			"min": 0,
+			"max": 1000
+		},
+		"dimensioni_px": {
+			"altezza": {
+				"min": 0
+			},
+			"larghezza": {
+				"min": 0
+			}
+		},
+		"analisi_media": true,
+		"descrizione": true
+	},
+	"album": {
+		"limite": 5
+	},
+	"credenziali": [
+		{
+			"access_token": "IGQVJXaVZAfb0ZAZAWG0welFHLXpBaFltajFrOUpWcllBdF91NmpEbHVvdTNrQTRHNnNrRk43MXJrUnR3OUlCTW1ueG9tRHk2R3RsSURPbUhLdE5XOG1vOXVhTTAxR3pXWm01aXExcldmUVZAGS3ZAGVFBrZAQZDZD"
+		},
+		{
+			"access_token": "IGQVJYUmtuTU9qZAWRaRzF5WTZAhTFdaekhUUjJ3WGNDSHMwUTd2VHBQVExzZAWhyLWpfeDktWEVZAa2diYThtSlJRTzZA1YTg3ZAktyMk5KRVBEQ1djQ2pXV2NVeFJIWUJwMEp3ckxia3RXVkt3aTdNR0RvYwZDZD"
+		}
+	]
+}
