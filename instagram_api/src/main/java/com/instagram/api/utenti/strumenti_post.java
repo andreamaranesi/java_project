@@ -107,13 +107,13 @@ public abstract class strumenti_post extends manipola_data_instagram {
 
 				if (pos_hashtag != -1) {
 
-					String temp = descrizione.substring(pos_hashtag + 1, descrizione.length());
+					String temp = descrizione.substring(pos_hashtag + 1);
 					int pos_spaziovuoto = temp.indexOf(' ');
 					pos_spaziovuoto = pos_spaziovuoto == -1 ? temp.length() : pos_spaziovuoto;
 					String hashtag = temp.substring(0, pos_spaziovuoto);
 					hashtag = filtra_hashtag(hashtag);
 					_hashtag.add(hashtag);
-					descrizione = descrizione.substring(pos_hashtag + 1 + hashtag.length(), descrizione.length());
+					descrizione = descrizione.substring(pos_hashtag + 1 + hashtag.length());
 				}
 
 			}

@@ -65,7 +65,7 @@ public abstract class chiamate_API extends strumenti_comuni {
 		String class_da_trovare = "<meta property=\"og:description\" content=\"";
 		String fine_tag = " ";
 		int trova_span = json.indexOf(class_da_trovare);
-		String html = json.substring(trova_span + class_da_trovare.length(), json.length());
+		String html = json.substring(trova_span + class_da_trovare.length());
 		return html.substring(0, html.indexOf(fine_tag));
 	}
 
