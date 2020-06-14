@@ -193,7 +193,6 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				dati.setUsername((String) utente.getUsername());
 				int contatore=0;
 				for (int i = 0; i < utente.posts.size() && contatore < filtri.getLimite_post(); i++) {
-
 					post post = utente.posts.get(i);
 					post.filtrato = true;
 					String descrizione = (String) post.getDescrizione();

@@ -33,7 +33,7 @@ public abstract class strumenti_comuni {
 
 	/**
 	 * 
-	 * verifica se il post รจ stato caricato prima o dopo una determinata @param
+	 * verifica se il post è stato caricato prima o dopo una determinata @param
 	 * data_iniziale
 	 * 
 	 * @see #cerca_valori(String, String)

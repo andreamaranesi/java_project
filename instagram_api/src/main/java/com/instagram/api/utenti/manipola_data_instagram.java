@@ -5,31 +5,43 @@ import java.util.HashMap;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 
 /**
- * consente di effettuare operazioni a partire dall'attributo ("timestamp") che contiene al suo interno la 
- * data di caricamento del post di Instagram
+ * consente di effettuare operazioni a partire dall'attributo ("timestamp") che
+ * contiene al suo interno la data di caricamento del post di Instagram
  * 
  * @author Andrea Maranesi
  *
  */
 public abstract class manipola_data_instagram {
-	
+
+	private String aggiungi_zero(String cifra) {
+		if (cifra.length() == 1) {
+			return "0" + cifra;
+		}
+		return cifra;
+	}
+
 	/**
-	 * restituisce la data del post in formato <b>giorno-mese-anno - ora:minuti:secondi</b>
+	 * restituisce la data del post in formato <b>giorno-mese-anno -
+	 * ora:minuti:secondi</b>
+	 * 
 	 * @see #manipola_data(String)
 	 * @param data_caricamento
-	 * @return data formattata a partire dal timestamp restituito dalle API di instagram
+	 * @return data formattata a partire dal timestamp restituito dalle API di
+	 *         instagram
 	 */
-	protected String data_formattata(String data_caricamento) {
+	public String data_formattata(String data_caricamento) {
 		HashMap<String, Integer> info = manipola_data(data_caricamento);
 		if (info == null)
 			return null;
-		return info.get("giorno").toString() + "/" + info.get("mese") + "/" + info.get("anno") + " - " + info.get("ora")
-				+ ":" + info.get("minuti") + ":" + info.get("secondi");
+		return aggiungi_zero(info.get("giorno").toString()) + "/" + aggiungi_zero(info.get("mese").toString()) + "/"
+				+ aggiungi_zero(info.get("anno").toString()) + " - " + aggiungi_zero(info.get("ora").toString()) + ":"
+				+ aggiungi_zero(info.get("minuti").toString()) + ":" + aggiungi_zero(info.get("secondi").toString());
 
 	}
 
 	/**
-	 * Crea un'hashmap contenente giorno,mese,anno,minuto,ora,secondo relativi a quando il post è stato caricato
+	 * Crea un'hashmap contenente giorno,mese,anno,minuto,ora,secondo relativi a
+	 * quando il post è stato caricato
 	 * 
 	 * @param data_caricamento
 	 */

@@ -1,54 +1,35 @@
 package com.instagram.api.modelli;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.imageio.ImageIO;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.instagram.api.config_generali.*;
 import com.instagram.api.eccezioni.access_token_errato;
 import com.instagram.api.eccezioni.eccezione;
 import com.instagram.api.eccezioni.stringa_errata;
-import com.instagram.api.ricorsione_post.id_media;
-import com.instagram.api.ricorsione_post.media;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 import com.instagram.api.utenti.lista_utenti;
 import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 
 /**
- * la classe seguente serve per effettuare dei filtri sui post di ciascun {@link com.instagram.api.utenti.utente} ottenuti
+ * la classe serve per effettuare dei filtri sui post di ciascun {@link com.instagram.api.utenti.utente} ottenuti
  * tramite {@link #nuova_chiamata_API()} 
  * 
  */
