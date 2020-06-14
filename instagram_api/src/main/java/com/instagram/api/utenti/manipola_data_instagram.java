@@ -5,6 +5,13 @@ import java.util.HashMap;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 
 public abstract class manipola_data_instagram {
+	
+	/**
+	 * restituisce la data del post in formato <b>giorno-mese-anno - ora:minuti:secondi</b>
+	 * @see #manipola_data(String)
+	 * @param data_caricamento
+	 * @return data formattata a partire dal timestamp restituito dalle API di instagram
+	 */
 	protected String data_formattata(String data_caricamento) {
 		HashMap<String, Integer> info = manipola_data(data_caricamento);
 		if (info == null)
@@ -14,6 +21,11 @@ public abstract class manipola_data_instagram {
 
 	}
 
+	/**
+	 * Crea un'hashmap contenente giorno,mese,anno,minuto,ora,secondo relativi a quando il post è stato caricato
+	 * 
+	 * @param data_caricamento
+	 */
 	protected HashMap<String, Integer> manipola_data(String data_caricamento) {
 
 		HashMap<String, Integer> finale = new HashMap();

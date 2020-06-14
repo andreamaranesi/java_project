@@ -48,6 +48,15 @@ public class post extends strumenti_post {
 
 	}
 
+	/**
+	 * 
+	 * @return IMMAGINE,VIDEO,CAROUSEL_ALBUM nel caso in cui il post sia stato
+	 *         filtrato ({@link com.instagram.api.modelli.filtri} o usato da
+	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         Viene restituito un nuovo
+	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
+	 *         caso siano stati richiesti i metadati
+	 */
 	public Object getTipo_post() {
 		if (this.filtrato) {
 			return ritorna_tipo_media(this.media_type);
@@ -57,6 +66,15 @@ public class post extends strumenti_post {
 		return tipo_post;
 	}
 
+	/**
+	 * 
+	 * @return altezza in px nel caso in cui il post sia stato filtrato
+	 *         ({@link com.instagram.api.modelli.filtri}) o usato da
+	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         Viene restituito un nuovo
+	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
+	 *         caso siano stati richiesti i metadati
+	 */
 	public Object getAltezza() {
 		if (altezza == -1)
 			return null;
@@ -67,6 +85,15 @@ public class post extends strumenti_post {
 		return altezza;
 	}
 
+	/**
+	 * 
+	 * @return larghezza in px nel caso in cui il post sia stato filtrato
+	 *         ({@link com.instagram.api.modelli.filtri}) o usato da
+	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         Viene restituito un nuovo
+	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
+	 *         caso siano stati richiesti i metadati
+	 */
 	public Object getLarghezza() {
 		if (larghezza == -1)
 			return null;
@@ -92,6 +119,12 @@ public class post extends strumenti_post {
 			this.dimensione = dimensione;
 	}
 
+	/**
+	 * 
+	 * @return Viene restituito un nuovo
+	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
+	 *         caso siano stati richiesti i metadati
+	 */
 	public Object getDimensione() {
 		if (this.metadati)
 			return new descrizione_attributo("String", "dimensione in MB o KB dell'immagine");
@@ -102,6 +135,15 @@ public class post extends strumenti_post {
 		return super.manipola_data(this.timestamp);
 	}
 
+	/**
+	 * @see #data_formattata(String)
+	 * @return data creazione formattata nel caso in cui il post sia stato filtrato
+	 *         ({@link com.instagram.api.modelli.filtri} o usato da
+	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         Viene restituito un nuovo
+	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
+	 *         caso siano stati richiesti i metadati
+	 */
 	public Object getData_creazione() {
 		if (this.filtrato)
 			return data_formattata(this.timestamp);
@@ -114,6 +156,15 @@ public class post extends strumenti_post {
 		this.data_creazione = data_creazione;
 	}
 
+	/**
+	 * 
+	 * @return attributo descrizione nel caso in cui il post sia stato filtrato
+	 *         ({@link com.instagram.api.modelli.filtri} o usato da
+	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         Viene restituito un nuovo
+	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
+	 *         caso siano stati richiesti i metadati
+	 */
 	public Object getDescrizione() {
 		if (this.filtrato && this.restituisci_desc && this.restituisci_desc) {
 			return this.caption;
@@ -127,6 +178,13 @@ public class post extends strumenti_post {
 		// this.descrizione = descrizione;
 	}
 
+	/**
+	 * 
+	 * @return Ritorna i figli dell'album. <br />
+	 *         Viene restituito un nuovo
+	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
+	 *         caso siano stati richiesti i metadati
+	 */
 	public Object getChildren() {
 		if (this.album) {
 			return this.children;
@@ -148,10 +206,20 @@ public class post extends strumenti_post {
 		this.album = album;
 	}
 
+	/**
+	 * 
+	 * @return tutti gli hashtag presenti nella {@link #descrizione}
+	 */
 	public ArrayList<String> hashtag() {
 		return super.hashtag(this.caption);
 	}
 
+	/**
+	 * 
+	 * @return Viene restituito un nuovo
+	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
+	 *         caso siano stati richiesti i metadati
+	 */
 	public Object getId() {
 		if (this.metadati)
 			return new descrizione_attributo("long", "id del post");
@@ -162,6 +230,12 @@ public class post extends strumenti_post {
 		this.id = id;
 	}
 
+	/**
+	 * 
+	 * @return null nel caso in cui il post sia stato filtrato
+	 *         ({@link com.instagram.api.modelli.filtri} o usato da
+	 *         {@link com.instagram.com.modelli.statistiche})
+	 */
 	public String getCaption() {
 		if (this.filtrato)
 			return null;
@@ -180,6 +254,13 @@ public class post extends strumenti_post {
 		this.media_url = media_url;
 	}
 
+	/**
+	 * 
+	 * @return null nel caso in cui il post sia stato filtrato
+	 *         ({@link com.instagram.api.modelli.filtri} o usato da
+	 *         {@link com.instagram.com.modelli.statistiche})
+
+	 */
 	public String getMedia_type() {
 		if (!this.filtrato)
 			return media_type;
@@ -190,6 +271,12 @@ public class post extends strumenti_post {
 		this.media_type = media_type;
 	}
 
+	/**
+	 * 
+	 * @return null nel caso in cui il post sia stato filtrato
+	 *         ({@link com.instagram.api.modelli.filtri} o usato da
+	 *         {@link com.instagram.com.modelli.statistiche})
+	 */
 	public String getTimestamp() {
 		if (this.filtrato) {
 			return null;
