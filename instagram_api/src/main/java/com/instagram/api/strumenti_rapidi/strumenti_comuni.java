@@ -26,7 +26,7 @@ public abstract class strumenti_comuni {
 			i = stringa.indexOf(separatore);
 			int c = i == -1 ? stringa.length() : i;
 			valori_cercati.add(stringa.substring(0, c));
-			stringa = stringa.substring(i + separatore.length(), stringa.length());
+			stringa = stringa.substring(i + separatore.length());
 		} while (i != -1);
 		return valori_cercati;
 	}
