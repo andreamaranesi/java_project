@@ -14,7 +14,7 @@ public abstract class strumenti_comuni {
 
 	/**
 	 * Il seguente metodo restituisce una lista dinamica contente tutte le
-	 * occorrenze in una stringa, distinti da un <b>separatore</b>.<br />
+	 * occorrenze in una stringa, distinti da un <b>separatore</b>.<br>
 	 * Es. nome1,nome2 =>
 	 * <b>separatore=","</b> => [nome1,nome2]
 	 * 
@@ -35,7 +35,7 @@ public abstract class strumenti_comuni {
 
 	/**
 	 * 
-	 * verifica se il post è stato caricato prima o dopo una determinata
+	 * verifica se il post e' stato caricato prima o dopo una determinata
 	 * data_iniziale
 	 * 
 	 * @see #cerca_valori(String, String)
