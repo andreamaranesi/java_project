@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Classe contenente l'attributo <b>successivo</b>, da utilizzare nella ricorsione per ottenere tutti i post dell'utente
- *@see com.instagram.api.modelli.chiamate_API#ottieni_post(Object, String, long, boolean)
+ * @see com.instagram.api.modelli.chiamate_API#ottieni_post(Object, String, long, boolean)
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class cursori {
