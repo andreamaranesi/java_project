@@ -147,7 +147,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 
 	/**
 	 * Cerca gli hashtag presenti nel post e li inserisce all'interno
-	 * dell'hashmap @param hashtag_trovati Se @param hashtag_trovati contiene
+	 * dell'hashmap <b>hashtag_trovati</b>. Se <b>hashtag_trovati</b> contiene
 	 * l'hashtag, allora aumenta di 1 il valore, altrimenti aggiunge una nuova
 	 * coppia chiave-valore (hashtag, 1)
 	 * 
@@ -313,11 +313,11 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 	/**
 	 * 
 	 * legge dal file locale dati_lettura.json i dati ottenuti in precedenza
-	 * mediante una nuova chiamata API (@see {@link #nuova_chiamata_API()}), oppure
+	 * mediante una nuova chiamata API {@link #nuova_chiamata_API()}, oppure
 	 * effettua una nuova chiamata. In quest'ultimo caso memorizza nel file locale
 	 * dati_lettura.json i dati così ottenuti.
 	 * 
-	 * Mediante il metodo @see
+	 * Mediante il metodo 
 	 * {@link #genera_statistiche(lista_utenti, opzioni_statistiche, String)}
 	 * restituisce un JSON con tutte le statistiche ottenute dai vari post
 	 * 
@@ -366,6 +366,12 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 
 	}
 
+	/**
+	 * Effettua una media tra le varie date di caricamento di un insieme di post scelti
+	 * Genera una stringa contenente la distanza temporale tra la data di caricamento di un post e l'altro
+	 * 
+	 * @author Andrea Maranesi
+	 */
 	@Override
 	public String intervallo_caricamenti(ArrayList<post> posts) {
 		ArrayList<Long> long_date_caricamento = new ArrayList();

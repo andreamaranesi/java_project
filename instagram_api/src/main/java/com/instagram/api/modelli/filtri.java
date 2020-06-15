@@ -179,8 +179,9 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	}
 
 	/**
-	 * verifica se l'hashtag passato con la chiamata GET/dati è presente nella descrizione del singolo post
+	 * verifica se l'hashtag passato con la chiamata GET /dati è presente nella descrizione del singolo post
 	 * 
+	 * @see #ottieni_filtri(opzioni_filtri, boolean, String, String)
 	 * @see #cerca_valori(String, String)
 	 */
 	@Override
@@ -228,7 +229,8 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	 * verifica se la stringa hashtag passata col metodo GET /dati e' valida
 	 * Es: sea||italy è valido
 	 * Es: #sea è un filtro invalido
-	 * 
+	 *
+	 * @see #ottieni_filtri(opzioni_filtri, boolean, String, String)	 * 
 	 * @see #verifica_regex(String, String)
 	 * 
 	 */
@@ -239,7 +241,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 
 	/**
 	 * 
-	 * legge dal file locale dati_lettura.json i dati ottenuti in precedenza mediante una nuova chiamata API (@see {@link #nuova_chiamata_API()}), 
+	 * legge dal file locale dati_lettura.json i dati ottenuti in precedenza mediante una nuova chiamata API ({@link #nuova_chiamata_API()}), 
 	 * oppure effettua una nuova chiamata. In quest'ultimo caso memorizza nel file locale dati_lettura.json i dati così ottenuti.
 	 * 
 	 * Restuisce tutti i post conformi ai filtri scelti.
@@ -265,7 +267,6 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 		verifica_get_hashtag(hashtag);
 		verifica_get_data_caricamento(data_caricamento);
 
-		// leggi da il file ./dati-lettura.json
 		if (leggi_dafile_locale) {
 			String json = "";
 			json = super.leggi("./dati_lettura.json");
@@ -281,7 +282,6 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 
 			}
 		} else {
-			// leggi da la variabile locale config.json
 			lista_utenti lista_utenti = nuova_chiamata_API();
 
 			try {
