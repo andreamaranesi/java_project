@@ -114,7 +114,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 
 	/**
 	 * ottiene dimensioni (in MB o KB) del post; l'altezza e la larghezza in px nel
-	 * caso in cui il post sia un'immagine. <br />Aggiunge alle liste dinamiche
+	 * caso in cui il post sia un'immagine. <br> Aggiunge alle liste dinamiche
 	 * media_altezza, media_larghezza e media_dimensioni i valori cosi' ottenuti.
 	 * 
 	 */
@@ -366,7 +366,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 	}
 
 	/**
-	 * Effettua una media tra le varie date di caricamento di un insieme di post scelti <br />
+	 * Effettua una media tra le varie date di caricamento di un insieme di post scelti <br>
 	 * Genera una stringa contenente la distanza temporale tra la data di caricamento di un post e l'altro
 	 * 
 	 * @author Andrea Maranesi

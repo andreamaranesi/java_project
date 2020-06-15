@@ -101,8 +101,8 @@ public abstract class chiamate_API extends strumenti_comuni {
 	}
 
 	/**
-	 * verifica se la stringa data_caricamento passata col metodo GET /dati e' valida
-	 * Es: >2-9-2019 and <10-11-2019 è un filtro valido Es: 2-9 && <2020 e' un filtro
+	 * verifica se la stringa data_caricamento passata col metodo GET /dati e' valida <br>
+	 * Es: > 2-9-2019 and <10-11-2019 e' un filtro valido <br> Es: 2-9 or < 2020 e' un filtro
 	 * invalido
 	 * 
 	 */
