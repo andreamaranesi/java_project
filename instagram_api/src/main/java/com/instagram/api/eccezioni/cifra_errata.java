@@ -1,5 +1,12 @@
 package com.instagram.api.eccezioni;
 
+/**
+ * la classe viene chiamata se si dovesse presentare una cifra errata
+ * Es. <b>limite=-2</b> quando il limite <strong>deve</strong> essere compreso tra 1 e 2
+ * 
+ * @author Andrea Maranesi
+ *
+ */
 public class cifra_errata extends Exception {
 
 	public cifra_errata(String messaggio) {

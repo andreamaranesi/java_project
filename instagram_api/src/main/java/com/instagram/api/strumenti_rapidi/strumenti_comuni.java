@@ -14,9 +14,11 @@ public abstract class strumenti_comuni {
 
 	/**
 	 * Il seguente metodo restituisce una lista dinamica contente tutte le
-	 * occorrenze in una stringa, distinti dal @param separatore. Es. nome1,nome2 =>
+	 * occorrenze in una stringa, distinti da un <b>separatore</b>.<br />
+	 * Es. nome1,nome2 =>
 	 * <b>separatore=","</b> => [nome1,nome2]
 	 * 
+	 * @param separatore
 	 * @author Andrea Maranesi
 	 */
 	public ArrayList<String> cerca_valori(String stringa, String separatore) {
@@ -33,11 +35,11 @@ public abstract class strumenti_comuni {
 
 	/**
 	 * 
-	 * verifica se il post è stato caricato prima o dopo una determinata @param
+	 * verifica se il post è stato caricato prima o dopo una determinata
 	 * data_iniziale
 	 * 
 	 * @see #cerca_valori(String, String)
-	 * 
+	 * @param data_iniziale
 	 * @author Alessio Pettinari
 	 */
 	public boolean verifica_data(post post, String data_iniziale) {
