@@ -52,7 +52,7 @@ public class post extends strumenti_post {
 	 * 
 	 * @return IMMAGINE,VIDEO,CAROUSEL_ALBUM nel caso in cui il post sia stato
 	 *         filtrato ({@link com.instagram.api.modelli.filtri} o usato da
-	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         {@link com.instagram.api.modelli.statistiche}). <br />
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
 	 *         caso siano stati richiesti i metadati
@@ -70,7 +70,7 @@ public class post extends strumenti_post {
 	 * 
 	 * @return altezza in px nel caso in cui il post sia stato filtrato
 	 *         ({@link com.instagram.api.modelli.filtri}) o usato da
-	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         {@link com.instagram.api.modelli.statistiche}). <br />
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
 	 *         caso siano stati richiesti i metadati
@@ -89,7 +89,7 @@ public class post extends strumenti_post {
 	 * 
 	 * @return larghezza in px nel caso in cui il post sia stato filtrato
 	 *         ({@link com.instagram.api.modelli.filtri}) o usato da
-	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         {@link com.instagram.api.modelli.statistiche}). <br />
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
 	 *         caso siano stati richiesti i metadati
@@ -139,7 +139,7 @@ public class post extends strumenti_post {
 	 * @see #data_formattata(String)
 	 * @return data creazione formattata nel caso in cui il post sia stato filtrato
 	 *         ({@link com.instagram.api.modelli.filtri} o usato da
-	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         {@link com.instagram.com.modelli.statistiche}). <br />
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
 	 *         caso siano stati richiesti i metadati
@@ -160,7 +160,7 @@ public class post extends strumenti_post {
 	 * 
 	 * @return attributo descrizione nel caso in cui il post sia stato filtrato
 	 *         ({@link com.instagram.api.modelli.filtri} o usato da
-	 *         {@link com.instagram.com.modelli.statistiche}. <br />
+	 *         {@link com.instagram.api.modelli.statistiche}). <br />
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
 	 *         caso siano stati richiesti i metadati
@@ -234,7 +234,7 @@ public class post extends strumenti_post {
 	 * 
 	 * @return null nel caso in cui il post sia stato filtrato
 	 *         ({@link com.instagram.api.modelli.filtri} o usato da
-	 *         {@link com.instagram.com.modelli.statistiche})
+	 *         {@link com.instagram.api.modelli.statistiche})
 	 */
 	public String getCaption() {
 		if (this.filtrato)
@@ -258,7 +258,7 @@ public class post extends strumenti_post {
 	 * 
 	 * @return null nel caso in cui il post sia stato filtrato
 	 *         ({@link com.instagram.api.modelli.filtri} o usato da
-	 *         {@link com.instagram.com.modelli.statistiche})
+	 *         {@link com.instagram.api.modelli.statistiche})
 
 	 */
 	public String getMedia_type() {

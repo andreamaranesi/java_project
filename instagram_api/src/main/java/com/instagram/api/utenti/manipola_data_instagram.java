@@ -41,7 +41,7 @@ public abstract class manipola_data_instagram {
 
 	/**
 	 * Crea un'hashmap contenente giorno,mese,anno,minuto,ora,secondo relativi a
-	 * quando il post è stato caricato
+	 * quando il post e' stato caricato
 	 * 
 	 * @param data_caricamento
 	 */

@@ -21,7 +21,7 @@ import com.instagram.api.strumenti_rapidi.shortcodes;
 
 /**
  * 
- * La classe consente di effettuare operazioni sul post ({@link com.instagram.api.utenti.post})
+ * La classe consente di effettuare operazioni sul {@link com.instagram.api.utenti.post}
  *
  */
 public abstract class strumenti_post extends manipola_data_instagram {
@@ -34,7 +34,7 @@ public abstract class strumenti_post extends manipola_data_instagram {
 
 	/**
 	 * 
-	 * consente di memorizzare all'interno di un'hashmap altezza e larghezza (in px) del post, se quest'ultimo è un'immagine,
+	 * consente di memorizzare all'interno di un'hashmap altezza e larghezza (in px) del post, se quest'ultimo e' un'immagine,
 	 * oltre che la dimensione in MB o KB dello stesso
 	 * 
 	 * @param media_url
@@ -88,7 +88,7 @@ public abstract class strumenti_post extends manipola_data_instagram {
 	}
 	
 	/**
-	 * consente di trovare gli hashtag presenti all'interno della descrizione di un post
+	 * consente di trovare gli hashtag presenti all'interno della descrizione di un {@link com.instagram.api.utenti.post}
 	 * 
 	 * @param descrizione
 	 */
