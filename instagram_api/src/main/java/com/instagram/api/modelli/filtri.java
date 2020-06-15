@@ -190,6 +190,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 			return true;
 		if (post.getDescrizione() == null)
 			return false;
+		hashtag=hashtag.replaceAll("[\\s]","");
 		ArrayList<String> _hashtag = post.hashtag();
 		String separatore = "||";
 		if (_hashtag == null)
@@ -241,10 +242,10 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 
 	/**
 	 * 
-	 * legge dal file locale dati_lettura.json i dati ottenuti in precedenza mediante una nuova chiamata API ({@link #nuova_chiamata_API()}), 
-	 * oppure effettua una nuova chiamata. In quest'ultimo caso memorizza nel file locale dati_lettura.json i dati così ottenuti.
+	 * legge dal file locale <b>dati_lettura.json</b> i dati ottenuti in precedenza mediante una nuova chiamata API ({@link #nuova_chiamata_API()}), 
+	 * oppure ne effettua una nuova. In quest'ultimo caso memorizza nel file locale <b>dati_lettura.json</b> i dati così ottenuti.
 	 * 
-	 * Restuisce tutti i post conformi ai filtri scelti.
+	 * @return tutti i post conformi ai filtri scelti.
 	 * 
 	 * @param _filtri
 	 * @param leggi_dafile_locale
@@ -271,7 +272,6 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 			String json = "";
 			json = super.leggi("./dati_lettura.json");
 			try {
-				shortcodes.pr("ho appena letto " + json);
 				return filtra_dati(new ObjectMapper().readValue(json, lista_utenti.class), _filtri, hashtag,
 						data_caricamento);
 

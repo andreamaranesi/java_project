@@ -102,7 +102,7 @@ public abstract class strumenti_post extends manipola_data_instagram {
 			int pos_hashtag = 0;
 
 			while (pos_hashtag != -1) {
-				descrizione=descrizione.trim();
+				descrizione=descrizione.replaceAll("[\\s]", "");
 				pos_hashtag = descrizione.indexOf("#");
 
 				if (pos_hashtag != -1) {

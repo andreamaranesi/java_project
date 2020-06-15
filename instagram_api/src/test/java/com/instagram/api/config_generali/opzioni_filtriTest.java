@@ -23,7 +23,7 @@ class opzioni_filtriTest extends opzioni_filtri{
 	@Test
 	void verifica() {
 		int limite_post=super.getLimite();
-		assertEquals(limite_post,10);
+		assertEquals(limite_post,50);
 	}
 	
 

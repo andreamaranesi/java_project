@@ -33,7 +33,7 @@ public class opzioni_filtri {
 	}
 
 	public void setLimite(int limite) throws cifra_errata{
-		if (this.limite >= 0 && this.limite<=50)
+		if (limite >= 0)
 			this.limite = limite;
 		else
 			throw new cifra_errata("L'attributo limite per il numero dei post da filtrare",limite,0,50);

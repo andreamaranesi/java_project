@@ -27,7 +27,7 @@ import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 
 /**
- * la classe seguente serve per effettuare le chiamate API necessarie per
+ * la classe serve per effettuare le chiamate API necessarie per
  * ottenere id utente, username utente e tutti i relativi media, oltre che al
  * numero di follower
  *

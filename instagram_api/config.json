@@ -1,26 +1,5 @@
 {
 	"limite": 140,
-	"post": {
-		"tipo_dati": 0,
-		"dimensioni": {
-			"min": 0.100,
-			"max": 100
-		},
-		"lunghezza_desc": {
-			"min": 0,
-			"max": 1000
-		},
-		"dimensioni_px": {
-			"altezza": {
-				"min": 0
-			},
-			"larghezza": {
-				"min": 0
-			}
-		},
-		"analisi_media": true,
-		"descrizione": true
-	},
 	"album": {
 		"limite": 5
 	},

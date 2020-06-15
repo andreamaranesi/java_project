@@ -114,8 +114,8 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 
 	/**
 	 * ottiene dimensioni (in MB o KB) del post; l'altezza e la larghezza in px nel
-	 * caso in cui il post sia un'immagine. Aggiunge alle liste dinamiche
-	 * media_altezza, media_larghezza e media_dimensioni i valori così ottenuti.
+	 * caso in cui il post sia un'immagine. <br />Aggiunge alle liste dinamiche
+	 * media_altezza, media_larghezza e media_dimensioni i valori cosi' ottenuti.
 	 * 
 	 */
 	@Override
@@ -312,14 +312,13 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 
 	/**
 	 * 
-	 * legge dal file locale dati_lettura.json i dati ottenuti in precedenza
-	 * mediante una nuova chiamata API {@link #nuova_chiamata_API()}, oppure
-	 * effettua una nuova chiamata. In quest'ultimo caso memorizza nel file locale
-	 * dati_lettura.json i dati così ottenuti.
+	 * legge dal file locale <b>dati_lettura.json</b> i dati ottenuti in precedenza
+	 * mediante una nuova chiamata API {@link #nuova_chiamata_API()}, oppure ne
+	 * effettua una nuova. In quest'ultimo caso memorizza nel file locale
+	 * <b>dati_lettura.json</b> i dati cosi' ottenuti.
 	 * 
-	 * Mediante il metodo 
-	 * {@link #genera_statistiche(lista_utenti, opzioni_statistiche, String)}
-	 * restituisce un JSON con tutte le statistiche ottenute dai vari post
+	 * 
+	 * @return un JSON con tutte le statistiche ottenute dai vari post
 	 * 
 	 * @param filtri
 	 * @param leggi_dafile_locale
@@ -367,7 +366,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 	}
 
 	/**
-	 * Effettua una media tra le varie date di caricamento di un insieme di post scelti
+	 * Effettua una media tra le varie date di caricamento di un insieme di post scelti <br />
 	 * Genera una stringa contenente la distanza temporale tra la data di caricamento di un post e l'altro
 	 * 
 	 * @author Andrea Maranesi
