@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,9 +26,9 @@ import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 
 /**
- * la classe serve per effettuare le chiamate API necessarie per
- * ottenere id utente, username utente e tutti i relativi media, oltre che al
- * numero di follower
+ * la classe serve per effettuare le chiamate API necessarie per ottenere id
+ * utente, username utente e tutti i relativi media, oltre che al numero di
+ * follower
  *
  */
 @Controller
@@ -53,12 +52,12 @@ public abstract class chiamate_API extends strumenti_comuni {
 	String ottieni_post_album = "https://graph.instagram.com/{media-id}?fields=media_url,media_type&access_token={token}";
 
 	/**
-	 * ottiene con un semplice parsing dell'html della pagina instagram di un utente, del tipo
-	 * instagram.com/{username}, tutti i follower formattati. Es. 1,3m per un numero di follower
-	 * maggiore o uguale di 1.300.000
+	 * ottiene con un semplice parsing dell'html della pagina instagram di un
+	 * utente, del tipo instagram.com/{username}, tutti i follower formattati. Es.
+	 * 1,3m per un numero di follower maggiore o uguale di 1.300.000
 	 * 
 	 */
-	
+
 	public String numero_follower(String username) {
 		RestTemplate restTemplate = new RestTemplate();
 		String json = restTemplate.getForObject(ottieni_html_utente, String.class, username);
@@ -101,9 +100,10 @@ public abstract class chiamate_API extends strumenti_comuni {
 	}
 
 	/**
-	 * verifica se la stringa data_caricamento passata col metodo GET /dati e' valida <br>
-	 * Es: > 2-9-2019 and <10-11-2019 e' un filtro valido <br> Es: 2-9 or < 2020 e' un filtro
-	 * invalido
+	 * verifica se la stringa data_caricamento passata col metodo GET /dati e'
+	 * valida <br>
+	 * Es: > 2-9-2019 and <10-11-2019 e' un filtro valido <br>
+	 * Es: 2-9 or < 2020 e' un filtro invalido
 	 * 
 	 */
 	public void verifica_get_data_caricamento(String data_caricamento) throws stringa_errata {
@@ -120,7 +120,7 @@ public abstract class chiamate_API extends strumenti_comuni {
 	 * 
 	 * @return true se viene trovato un match; false altrimenti
 	 */
-	
+
 	public boolean verifica_regex(String regex, String tester) {
 		Pattern pattern = Pattern.compile(regex);
 
@@ -138,14 +138,13 @@ public abstract class chiamate_API extends strumenti_comuni {
 		return false;
 	}
 
-	
 	/**
 	 * ottiene i figli di un album con delle chiamate ricorsive
 	 * 
 	 * @see #ottieni_post
 	 * 
 	 */
-	
+
 	public void iterazione_ottieni_media(post album, String access_token, String after, int rimanenti, long media_id)
 			throws eccezione {
 		RestTemplate restTemplate = new RestTemplate();
@@ -180,7 +179,7 @@ public abstract class chiamate_API extends strumenti_comuni {
 	 * @see #ottieni_post
 	 * 
 	 */
-	
+
 	public void iterazione_ottieni_media(utente user, String access_token, String after, int rimanenti)
 			throws eccezione {
 		RestTemplate restTemplate = new RestTemplate();
@@ -207,9 +206,10 @@ public abstract class chiamate_API extends strumenti_comuni {
 			throw new eccezione("Si è verificato un errore durante il recupero dei post");
 		}
 	}
-	
+
 	/**
-	 * ottiene i dati dell'utente e dei relatici media a partire dagli access_token specificati nel file locale config.json
+	 * ottiene i dati dell'utente e dei relatici media a partire dagli access_token
+	 * specificati nel file locale config.json
 	 * 
 	 * @return una nuova <b>lista_utenti</b>
 	 * @throws JsonProcessingException
