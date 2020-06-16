@@ -51,11 +51,11 @@ public class post extends strumenti_post {
 	/**
 	 * 
 	 * @return IMMAGINE,VIDEO,CAROUSEL_ALBUM nel caso in cui il post sia stato
-	 *         filtrato ({@link com.instagram.api.modelli.filtri} o usato da
-	 *         {@link com.instagram.api.modelli.statistiche}). <br>
+	 *         filtrato ({@link com.instagram.api.modelli.filtri}) o usato da
+	 *         {@link com.instagram.api.modelli.statistiche}. <br>
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
-	 *         caso siano stati richiesti i metadati
+	 *         caso in cui siano stati richiesti i metadati
 	 */
 	public Object getTipo_post() {
 		if (this.filtrato) {
@@ -70,10 +70,10 @@ public class post extends strumenti_post {
 	 * 
 	 * @return altezza in px nel caso in cui il post sia stato filtrato
 	 *         ({@link com.instagram.api.modelli.filtri}) o usato da
-	 *         {@link com.instagram.api.modelli.statistiche}). <br>
+	 *         {@link com.instagram.api.modelli.statistiche}. <br>
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
-	 *         caso siano stati richiesti i metadati
+	 *         caso in cui siano stati richiesti i metadati
 	 */
 	public Object getAltezza() {
 		if (altezza == -1)
@@ -89,10 +89,10 @@ public class post extends strumenti_post {
 	 * 
 	 * @return larghezza in px nel caso in cui il post sia stato filtrato
 	 *         ({@link com.instagram.api.modelli.filtri}) o usato da
-	 *         {@link com.instagram.api.modelli.statistiche}). <br>
+	 *         {@link com.instagram.api.modelli.statistiche}. <br>
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
-	 *         caso siano stati richiesti i metadati
+	 *         caso in cui siano stati richiesti i metadati
 	 */
 	public Object getLarghezza() {
 		if (larghezza == -1)
@@ -123,7 +123,7 @@ public class post extends strumenti_post {
 	 * 
 	 * @return Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
-	 *         caso siano stati richiesti i metadati
+	 *         caso in cui siano stati richiesti i metadati
 	 */
 	public Object getDimensione() {
 		if (this.metadati)
@@ -131,6 +131,10 @@ public class post extends strumenti_post {
 		return dimensione;
 	}
 
+	/**
+	 * @see com.instagram.api.utenti.strumenti_post#manipola_data(String)
+	 * @return data caricamento del post di instagram 
+	 */
 	public HashMap<String, Integer> hashmap_data() {
 		return super.manipola_data(this.timestamp);
 	}
@@ -142,7 +146,7 @@ public class post extends strumenti_post {
 	 *         {@link com.instagram.api.modelli.statistiche}). <br >
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
-	 *         caso siano stati richiesti i metadati
+	 *         caso in cui siano stati richiesti i metadati
 	 */
 	public Object getData_creazione() {
 		if (this.filtrato)
@@ -158,12 +162,12 @@ public class post extends strumenti_post {
 
 	/**
 	 * 
-	 * @return attributo descrizione nel caso in cui il post sia stato filtrato
+	 * @return attributo <b>{@link #descrizione}</b> nel caso in cui il post sia stato filtrato
 	 *         ({@link com.instagram.api.modelli.filtri} o usato da
 	 *         {@link com.instagram.api.modelli.statistiche}). <br>
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
-	 *         caso siano stati richiesti i metadati
+	 *         caso in cui siano stati richiesti i metadati
 	 */
 	public Object getDescrizione() {
 		if (this.filtrato && this.restituisci_desc && this.restituisci_desc) {
@@ -183,7 +187,7 @@ public class post extends strumenti_post {
 	 * @return Ritorna i figli dell'album. <br>
 	 *         Viene restituito un nuovo
 	 *         {@link com.instagram.api.utenti.metadati.descrizione_attributo} nel
-	 *         caso siano stati richiesti i metadati
+	 *         caso in cui siano stati richiesti i metadati
 	 */
 	public Object getChildren() {
 		if (this.album) {
@@ -207,7 +211,7 @@ public class post extends strumenti_post {
 	}
 
 	/**
-	 * 
+	 * @see com.instagram.api.utenti.strumenti_post#hashtag(String)
 	 * @return tutti gli hashtag presenti nella {@link #descrizione}
 	 */
 	public ArrayList<String> hashtag() {
@@ -233,8 +237,8 @@ public class post extends strumenti_post {
 	/**
 	 * 
 	 * @return null nel caso in cui il post sia stato filtrato
-	 *         ({@link com.instagram.api.modelli.filtri} o usato da
-	 *         {@link com.instagram.api.modelli.statistiche})
+	 *         ({@link com.instagram.api.modelli.filtri}) o usato da
+	 *         {@link com.instagram.api.modelli.statistiche}
 	 */
 	public String getCaption() {
 		if (this.filtrato)
@@ -257,9 +261,8 @@ public class post extends strumenti_post {
 	/**
 	 * 
 	 * @return null nel caso in cui il post sia stato filtrato
-	 *         ({@link com.instagram.api.modelli.filtri} o usato da
-	 *         {@link com.instagram.api.modelli.statistiche})
-
+	 *         ({@link com.instagram.api.modelli.filtri}) o usato da
+	 *         {@link com.instagram.api.modelli.statistiche}
 	 */
 	public String getMedia_type() {
 		if (!this.filtrato)
@@ -274,8 +277,8 @@ public class post extends strumenti_post {
 	/**
 	 * 
 	 * @return null nel caso in cui il post sia stato filtrato
-	 *         ({@link com.instagram.api.modelli.filtri} o usato da
-	 *         {@link com.instagram.api.modelli.statistiche})
+	 *         ({@link com.instagram.api.modelli.filtri}) o usato da
+	 *         {@link com.instagram.api.modelli.statistiche}
 	 */
 	public String getTimestamp() {
 		if (this.filtrato) {

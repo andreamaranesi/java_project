@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.instagram.api.strumenti_rapidi.shortcodes;
 
 /**
- * consente di effettuare operazioni a partire dall'attributo ("timestamp") che
+ * consente di effettuare operazioni a partire dall'attributo "{@link com.instagram.api.utenti.post#timestamp}" che
  * contiene al suo interno la data di caricamento del post di Instagram
  * 
  * @author Andrea Maranesi
@@ -26,7 +26,7 @@ public abstract class manipola_data_instagram {
 	 * 
 	 * @see #manipola_data(String)
 	 * @param data_caricamento
-	 * @return data formattata a partire dal timestamp restituito dalle API di
+	 * @return data formattata a partire dal {@link com.instagram.api.utenti.post#timestamp} restituito dalle API di
 	 *         instagram
 	 */
 	public String data_formattata(String data_caricamento) {

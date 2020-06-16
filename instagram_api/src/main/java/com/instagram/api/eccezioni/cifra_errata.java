@@ -1,8 +1,8 @@
 package com.instagram.api.eccezioni;
 
 /**
- * la classe viene chiamata se si dovesse presentare una cifra errata
- * Es. <b>limite=-2</b> quando il limite <strong>deve</strong> essere compreso tra 1 e 2
+ * la classe viene chiamata se si dovesse presentare un valore non ammesso <br>
+ * Es. <b>limite=-2</b> quando il limite <strong>deve</strong> essere maggiore di 0
  * 
  * @author Andrea Maranesi
  *

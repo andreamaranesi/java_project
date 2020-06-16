@@ -37,7 +37,7 @@ import com.instagram.api.utenti.utente;
 public class filtri extends chiamate_API implements strumenti_filtri {
 
 	/**
-	 * analizza le dimensioni (in MB o KB) di un post.
+	 * analizza le dimensioni (in MB o KB) di un post.<br>
 	 * Se il post è un'immagine analizza anche l'altezza e la larghezza in px
 	 * 
 	 * @see com.instagram.api.utenti.strumenti_post#getDimensioni(String, boolean)
@@ -105,7 +105,8 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	
 	/**
 	 * 
-	 * metodo per verificare i vari post e i figli dell'album a seconda dei filtri passati dall'utente
+	 * metodo per analizzare i vari post a seconda dei filtri passati dall'utente mediante il metodo
+	 * {@link #ottieni_filtri(opzioni_filtri, boolean, String, String)}
 	 * 
 	 * @see #verifica_descrizione(String, lunghezza_desc)
 	 * @see #verifica_hashtag(post, String)
@@ -179,7 +180,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	}
 
 	/**
-	 * verifica se l'hashtag passato con la chiamata GET /dati è presente nella descrizione del singolo post
+	 * verifica se l'hashtag passato con la chiamata GET {@link #ottieni_filtri(opzioni_filtri, boolean, String, String)} e' presente nella descrizione del singolo post
 	 * 
 	 * @see #ottieni_filtri(opzioni_filtri, boolean, String, String)
 	 * @see #cerca_valori(String, String)
@@ -227,8 +228,8 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	}
 
 	/**
-	 * verifica se la stringa hashtag passata col metodo GET /dati e' valida
-	 * Es: sea||italy è valido
+	 * verifica se la stringa hashtag passata col metodo GET {@link #ottieni_filtri(opzioni_filtri, boolean, String, String)} e' valida
+	 * <br> Es: sea||italy è valido<br>
 	 * Es: #sea è un filtro invalido
 	 *
 	 * @see #ottieni_filtri(opzioni_filtri, boolean, String, String)	 * 

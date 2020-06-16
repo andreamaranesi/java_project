@@ -7,7 +7,7 @@ import com.instagram.api.eccezioni.cifra_errata;
 import com.instagram.api.eccezioni.eccezione;
 /**
  * 
- * classe per memorizzare i filtri per i vari post
+ * classe per memorizzare i filtri relativi ai vari post
  * @see com.instagram.api.modelli.chiamate_API
  * @see com.instagram.api.modelli.filtri
  *

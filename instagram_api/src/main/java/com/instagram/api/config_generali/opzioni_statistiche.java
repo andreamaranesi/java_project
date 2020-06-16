@@ -6,7 +6,7 @@ import com.instagram.api.eccezioni.cifra_errata;
 
 /**
  * 
- * classe per memorizzare i filtri sulle statistiche passati tramite la chiamata GET <b>/statistiche</b>
+ * classe per memorizzare i filtri sulle statistiche passati tramite la chiamata GET <b>{@link com.instagram.api.modelli.statistiche#ottieni_statistiche(opzioni_statistiche, boolean, String)}</b>
  * 
  * @see com.instagram.api.modelli.chiamate_API
  * @see com.instagram.api.modelli.statistiche

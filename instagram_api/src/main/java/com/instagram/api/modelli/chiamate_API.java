@@ -27,7 +27,7 @@ import com.instagram.api.utenti.utente;
 
 /**
  * la classe serve per effettuare le chiamate API necessarie per ottenere id
- * utente, username utente e tutti i relativi media, oltre che al numero di
+ * utente, username, e tutti i relativi media, oltre che al numero di
  * follower
  *
  */
@@ -53,8 +53,8 @@ public abstract class chiamate_API extends strumenti_comuni {
 
 	/**
 	 * ottiene con un semplice parsing dell'html della pagina instagram di un
-	 * utente, del tipo instagram.com/{username}, tutti i follower formattati. Es.
-	 * 1,3m per un numero di follower maggiore o uguale di 1.300.000
+	 * utente, del tipo instagram.com/{username}, tutti i follower in una stringa formattata. <br >
+	 * Es. 1,3m per un numero di follower maggiore o uguale di 1.300.000
 	 * 
 	 */
 
@@ -70,7 +70,7 @@ public abstract class chiamate_API extends strumenti_comuni {
 
 	/**
 	 * ottiene per ogni post, od ogni figlio di un album, le relative informazioni,
-	 * ossia id, media_url, descrizione, data di caricamento ecc..
+	 * ossia id, url del media, descrizione, data di caricamento ecc..
 	 * 
 	 * 
 	 */
@@ -100,7 +100,8 @@ public abstract class chiamate_API extends strumenti_comuni {
 	}
 
 	/**
-	 * verifica se la stringa data_caricamento passata col metodo GET /dati e'
+	 * verifica se la stringa <b>data_caricamento</b> passata col metodo GET {@link com.instagram.api.modelli.filtri#ottieni_filtri(opzioni_filtri, boolean, String, String)}
+	 * o tramite il metodo GET {@link com.instagram.api.modelli.statistiche#ottieni_statistiche(opzioni_statistiche, boolean, String)} e'
 	 * valida <br>
 	 * Es: > 2-9-2019 and <10-11-2019 e' un filtro valido <br>
 	 * Es: 2-9 or < 2020 e' un filtro invalido
@@ -112,7 +113,7 @@ public abstract class chiamate_API extends strumenti_comuni {
 	}
 
 	/**
-	 * verifica se la stringa passata è valida secondo una determinata espressione
+	 * verifica se la stringa ricevuta è valida secondo una determinata espressione
 	 * 
 	 * @param regex
 	 * 
@@ -139,7 +140,7 @@ public abstract class chiamate_API extends strumenti_comuni {
 	}
 
 	/**
-	 * ottiene i figli di un album con delle chiamate ricorsive
+	 * ottiene i figli di un album con delle chiamate ricorsive ai server di Instagram
 	 * 
 	 * @see #ottieni_post
 	 * 
@@ -208,10 +209,10 @@ public abstract class chiamate_API extends strumenti_comuni {
 	}
 
 	/**
-	 * ottiene i dati dell'utente e dei relatici media a partire dagli access_token
-	 * specificati nel file locale config.json
+	 * ottiene i dati dell'utente e dei relativi media a partire dagli <b>access_token</b>
+	 * specificati nel file locale <b>config.json</b>
 	 * 
-	 * @return una nuova <b>lista_utenti</b>
+	 * @return una nuova <b>{@link com.instagram.api.utenti.lista_utenti}</b>
 	 * @throws JsonProcessingException
 	 * @throws access_token_errato
 	 * @throws eccezione

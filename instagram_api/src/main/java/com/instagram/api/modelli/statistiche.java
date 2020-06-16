@@ -53,7 +53,7 @@ import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 
 /**
- * la classe seguente serve per generare delle statistiche sui post di ciascun
+ * la classe serve per generare delle statistiche sui post di ciascun
  * {@link com.instagram.api.utenti.utente} ottenuti tramite
  * {@link #nuova_chiamata_API()}
  * 
@@ -171,7 +171,12 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 	 * rispettano l'arco temporale scelto. Infine crea da questi dati le statistiche
 	 * (media dimensioni, media altezza, ecc..)
 	 * 
+	 * @see #verifica_data(post, String)
+	 * @see #analizza_dimensioni_post(post, opzioni_statistiche, ArrayList, ArrayList, ArrayList)
+	 * @see #cerca_valori(String, String)
+	 * @see #analizza_hashtag(post, HashMap)
 	 * 
+	 * @return JSON della classe {@link com.instagram.api.statistiche.lista_statistiche}
 	 */
 	public String genera_statistiche(lista_utenti lista_utenti, opzioni_statistiche filtri, String data_caricamento) {
 
@@ -367,6 +372,7 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 	 * Effettua una media tra le varie date di caricamento di un insieme di post scelti <br>
 	 * Genera una stringa contenente la distanza temporale tra la data di caricamento di un post e l'altro
 	 * 
+	 * @see com.instagram.api.utenti.post#hashmap_data()
 	 * @author Andrea Maranesi
 	 */
 	@Override

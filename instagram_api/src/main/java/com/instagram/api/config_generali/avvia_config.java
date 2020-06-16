@@ -16,7 +16,7 @@ import com.instagram.api.strumenti_rapidi.shortcodes;
 
 /**
  * 
- * classe per inizializzare all'avvio del programma una nuova classe {@link com.instagram.api.config_generali.avvia_config}
+ * classe per inizializzare all'avvio del programma una nuova classe {@link com.instagram.api.config_generali.configurazione}
  *
  */
 @Component

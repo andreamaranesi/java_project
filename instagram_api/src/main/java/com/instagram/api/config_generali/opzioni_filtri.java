@@ -9,7 +9,7 @@ import com.instagram.api.eccezioni.cifra_errata;
 
 /**
  * 
- * classe per memorizzare i filtri passati tramite il file config.json o tramite le chiamate GET
+ * classe per memorizzare i filtri passati tramite il file <b>config.json</b> o tramite le chiamate GET
  * @see com.instagram.api.modelli.chiamate_API
  * @see com.instagram.api.modelli.filtri
  *
