@@ -62,7 +62,7 @@ public class post extends strumenti_post {
 			return ritorna_tipo_media(this.media_type);
 		}
 		if (this.metadati)
-			return new descrizione_attributo("Stringa", "Il tipo del post (IMMAGINE, VIDEO, CAROUSEL_ALBUM)");
+			return new descrizione_attributo("String", "Il tipo del post (IMMAGINE, VIDEO, CAROUSEL_ALBUM)");
 		return tipo_post;
 	}
 
