@@ -14,7 +14,7 @@ import com.instagram.api.utenti.lista_utenti;
 @Controller
 public class metadati {
 
-	public lista_utenti lista_utenti = new lista_utenti(true);
+	private lista_utenti lista_utenti = new lista_utenti(true);
 
 	/**
 	 * 
