@@ -7,6 +7,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 
+ * classe utile per generare metodi da invocare nel progetto che possono risultare pratici e veloci
+ *
+ */
 public class shortcodes {
 
 	public static void pr(Object stringa) {
