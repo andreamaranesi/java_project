@@ -338,7 +338,6 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 			throws JsonProcessingException, access_token_errato, eccezione, FileNotFoundException, stringa_errata {
 
 		verifica_get_data_caricamento(data_caricamento);
-		// leggi da il file ./dati-lettura.json
 		if (leggi_dafile_locale) {
 			String json = "";
 			json = super.leggi("./dati_lettura.json");
@@ -351,7 +350,6 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 			}
 
 		} else {
-			// leggi da la variabile locale config.json
 			lista_utenti lista_utenti = nuova_chiamata_API();
 
 			try {
