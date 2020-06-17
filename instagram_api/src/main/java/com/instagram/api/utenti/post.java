@@ -76,12 +76,12 @@ public class post extends strumenti_post {
 	 *         caso in cui siano stati richiesti i metadati
 	 */
 	public Object getAltezza() {
+		if (this.metadati)
+			return new descrizione_attributo("String", "l'altezza del media IMMAGINE in px");
 		if (altezza == -1)
 			return null;
 		if (this.filtrato)
 			return altezza + "px";
-		if (this.metadati)
-			return new descrizione_attributo("int", "l'altezza del media IMMAGINE in px");
 		return altezza;
 	}
 
@@ -95,12 +95,12 @@ public class post extends strumenti_post {
 	 *         caso in cui siano stati richiesti i metadati
 	 */
 	public Object getLarghezza() {
+		if (this.metadati)
+			return new descrizione_attributo("String", "larghezza del media IMMAGINE in px");
 		if (larghezza == -1)
 			return null;
 		if (this.filtrato)
 			return larghezza + "px";
-		if (this.metadati)
-			return new descrizione_attributo("int", "larghezza del media IMMAGINE in px");
 		return larghezza;
 	}
 
@@ -127,7 +127,7 @@ public class post extends strumenti_post {
 	 */
 	public Object getDimensione() {
 		if (this.metadati)
-			return new descrizione_attributo("String", "dimensione in MB o KB dell'immagine");
+			return new descrizione_attributo("String", "dimensione in MB o KB del media");
 		return dimensione;
 	}
 
