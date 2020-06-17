@@ -69,7 +69,7 @@ public abstract class strumenti_post extends manipola_data_instagram {
 
 	private String filtra_hashtag(String hashtag) {
 
-		Pattern pattern = Pattern.compile("^([^,;\\#\n])*");
+		Pattern pattern = Pattern.compile("^([^,;\\#\n\\@])*");
 		
 
 		try {
