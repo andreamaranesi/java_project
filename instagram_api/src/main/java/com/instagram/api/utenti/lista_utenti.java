@@ -16,7 +16,6 @@ public class lista_utenti {
 	 * a specificare per ogni attributo tipo e descrizione (vedere {@link com.instagram.api.utenti.metadati.descrizione_attributo}
 	 * @param metadati
 	 * 
-	 * @return metadati
 	 */
 	public lista_utenti(boolean metadati) {
 		utenti.add(new utente(true));
