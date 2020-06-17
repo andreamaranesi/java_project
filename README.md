@@ -188,9 +188,17 @@ restituisce il seguente **JSON**
             "tipo": "String",
             "descrizione": "data di caricamento del media"
           },
+          "altezza": {
+            "tipo": "String",
+            "descrizione": "l'altezza del media IMMAGINE in px"
+          },
+          "larghezza": {
+            "tipo": "String",
+            "descrizione": "larghezza del media IMMAGINE in px"
+          },
           "dimensione": {
             "tipo": "String",
-            "descrizione": "dimensione in MB o KB dell'immagine"
+            "descrizione": "dimensione in MB o KB del media"
           },
           "children": {
             "tipo": "ArrayList<post>",
@@ -304,7 +312,7 @@ restituisce un **JSON** contenente
         "limite":5
      }
   }
-  ```
+```
 
 
 
