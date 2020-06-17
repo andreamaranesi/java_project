@@ -294,6 +294,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 						+ ". Verificarne l'esistenza o prova a fare una nuova chiamata");
 
 			}
+			
 		} else {
 			lista_utenti lista_utenti = nuova_chiamata_API();
 
