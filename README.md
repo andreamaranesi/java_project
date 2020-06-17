@@ -13,7 +13,6 @@ Il programma è in grado di recuperare informazioni relativamente a
 
 ## INDICE CONTENUTI
 
-------
 
 <ul>
     <li>UML<ul>
