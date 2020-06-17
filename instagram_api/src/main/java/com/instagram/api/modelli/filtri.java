@@ -28,8 +28,8 @@ import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 
 /**
- * la classe serve per effettuare dei filtri sui post di ciascun
- * {@link com.instagram.api.utenti.utente} ottenuti tramite
+ * la classe serve per effettuare dei filtri sui post, di ciascun
+ * {@link com.instagram.api.utenti.utente}, ottenuti tramite
  * {@link #nuova_chiamata_API()}
  * 
  */
@@ -38,7 +38,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 
 	/**
 	 * analizza le dimensioni (in MB o KB) di un post.<br>
-	 * Se il post è un'immagine analizza anche l'altezza e la larghezza in px
+	 * Se il post e' un'immagine analizza anche l'altezza e la larghezza in px
 	 * 
 	 * @see com.instagram.api.utenti.strumenti_post#getDimensioni(String, boolean)
 	 * @return true se le dimensioni in MB o KB sono state rispettate, così come le
@@ -216,7 +216,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 		return false;
 	}
 
-	/*
+	/**
 	 * verifica se la descrizione del post ha un numero di caratteri compresi tra
 	 * quelli minimi e massimi scelti dagli utenti nei filtri
 	 * 
@@ -239,8 +239,8 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	 * verifica se la stringa hashtag passata col metodo GET
 	 * {@link #ottieni_filtri(opzioni_filtri, boolean, String, String)} e' valida
 	 * <br>
-	 * Es: sea||italy è valido<br>
-	 * Es: #sea è un filtro invalido
+	 * Es: sea or italy e' valido<br>
+	 * Es: #sea e' un filtro invalido
 	 *
 	 * @see #ottieni_filtri(opzioni_filtri, boolean, String, String) *
 	 * @see #verifica_regex(String, String)

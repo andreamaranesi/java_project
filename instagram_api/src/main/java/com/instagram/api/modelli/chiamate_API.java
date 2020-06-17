@@ -27,7 +27,7 @@ import com.instagram.api.utenti.utente;
 
 /**
  * la classe serve per effettuare le chiamate API necessarie per ottenere id
- * utente, username, e tutti i relativi media, oltre che al numero di
+ * utente, username, e tutti i relativi media, oltre che il numero di
  * follower
  *
  */
@@ -113,7 +113,7 @@ public abstract class chiamate_API extends strumenti_comuni {
 	}
 
 	/**
-	 * verifica se la stringa ricevuta è valida secondo una determinata espressione
+	 * verifica se la stringa ricevuta e' valida secondo una determinata espressione
 	 * 
 	 * @param regex
 	 * 
