@@ -27,6 +27,14 @@ import com.instagram.api.utenti.lista_utenti;
 import com.instagram.api.modelli.chiamate_API;
 import com.instagram.api.modelli.filtri;
 
+/**
+ * classe per restituire i post filtrati in formato html 
+ * 
+ * @see <a href="https://getmdl.io/">libreria Material Design Lite</a>
+ * @see com.instagram.api.modelli.filtri
+ * @author Andrea Maranesi
+ *
+ */
 @Controller
 class filtri_web extends chiamate_API {
 
