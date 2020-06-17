@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Contiene le specifiche di ogni media. Poichè {@link com.instagram.api.modelli.chiamate_API#iterazione_ottieni_media(com.instagram.api.utenti.post, String, String, int, long)} ritorna un numero limitato di post, è necessario effettuare un ciclo
- * utilizzando il parametro <b>successivo</b> ({@link com.instagram.api.modelli.ricorsione_post.cursori}), affinche' non restituisce una lista {@link com.instagram.api.ricorsione_post.id_media}
+ * utilizzando il parametro <b>successivo</b> ({@link com.instagram.api.ricorsione_post.cursori}), affinche' non restituisce una lista {@link com.instagram.api.ricorsione_post.id_media}
  * nulla
  *
  */
