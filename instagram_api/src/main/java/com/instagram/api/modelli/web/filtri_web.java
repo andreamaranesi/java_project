@@ -36,7 +36,7 @@ import com.instagram.api.modelli.filtri;
  *
  */
 @Controller
-class filtri_web extends chiamate_API {
+public class filtri_web extends chiamate_API {
 
 	filtri filtri = new filtri();
 
