@@ -274,7 +274,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	@RequestMapping(method = RequestMethod.GET, value = "/dati", produces = "application/json")
 	@ResponseBody
 	public Object ottieni_filtri(@RequestBody opzioni_filtri _filtri,
-			@RequestParam(value = "leggi_locale", defaultValue = "false") boolean leggi_dafile_locale,
+			@RequestParam(value = "leggi_locale", defaultValue = "true") boolean leggi_dafile_locale,
 			@RequestParam(value = "hashtag", defaultValue = "") String hashtag,
 			@RequestParam(value = "data_caricamento", defaultValue = "") String data_caricamento)
 			throws JsonProcessingException, access_token_errato, eccezione, stringa_errata, FileNotFoundException {
