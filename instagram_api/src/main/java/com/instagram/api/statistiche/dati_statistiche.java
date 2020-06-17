@@ -19,7 +19,6 @@ public class dati_statistiche {
 	private String dimensione_media;
 	private String altezza_media, larghezza_media;
 	private String media_caricamenti;
-
 	@JsonProperty("lunghezza_media_descrizione")
 	private String media_lung_descrizione;
 

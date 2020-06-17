@@ -395,10 +395,13 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 				return "ogni settimana";
 			else if (media_giorni < 30)
 				return "ogni " + media_giorni / 7 + " settimane";
-			else if (media_giorni > 27 && media_giorni < 31)
-				return "ogni mese";
-			else
+			else {
+			    long media_finale=media_giorni/30;
+			    if(media_finale==1) {
+			    	return "ogni mese";
+			    }
 				return "ogni " + media_giorni / 30 + " mesi";
+			}
 		}
 		return null;
 	}
