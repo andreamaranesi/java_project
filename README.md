@@ -275,7 +275,7 @@ restituisce un **JSON** contenente
 
 #### `filtri`
 
-- ```json
+```json
   {
      "limite":50,
      "post":{
