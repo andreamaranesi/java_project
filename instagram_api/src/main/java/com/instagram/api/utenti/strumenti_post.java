@@ -69,7 +69,7 @@ public abstract class strumenti_post extends manipola_data_instagram {
 
 	private String filtra_hashtag(String hashtag) {
 
-		Pattern pattern = Pattern.compile("^([^,;\\#\n\\@])*");
+		Pattern pattern = Pattern.compile("^([^,;#\\n\\@])*");
 		
 
 		try {
@@ -101,6 +101,7 @@ public abstract class strumenti_post extends manipola_data_instagram {
 		
 			int pos_hashtag = 0;
 
+			descrizione=descrizione.replaceAll("[\\n]", "");
 			while (pos_hashtag != -1) {
 				pos_hashtag = descrizione.indexOf("#");
 				

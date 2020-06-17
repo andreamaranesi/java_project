@@ -21,11 +21,13 @@
 			<div th:text="${post.getDescrizione()}"
 				class="mdl-card__supporting-text"></div>
 			<div class="mdl-card__actions mdl-card--border">
-				<ul>
-					<li>Altezza: <b th:text="${post.getAltezza()}"></b></li>
-					<li>Larghezza: <b th:text="${post.getLarghezza()}"></b></li>
-					<li>Dimensione: <b th:text="${post.getDimensione()}"></b></li>
-				</ul>
+				<div th:switch="${post.getTipo_post()}">
+					<p th:case="'IMMAGINE'">Altezza: <b th:text="${post.getAltezza()}"></b><br>
+					Larghezza: <b th:text="${post.getLarghezza()}"></b><br>
+					Dimensione Immagine: <b th:text="${post.getDimensione()}"></b></p>
+					<p th:case="'VIDEO'">
+					Dimensione Video: <b th:text="${post.getDimensione()}"></b></p>
+				</div>
 
 			</div>
 		</div>
