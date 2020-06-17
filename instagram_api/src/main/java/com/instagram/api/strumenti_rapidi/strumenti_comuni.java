@@ -18,7 +18,6 @@ public abstract class strumenti_comuni {
 	 * Es. nome1,nome2 =>
 	 * <b>separatore=","</b> => [nome1,nome2]
 	 * 
-	 * @param separatore
 	 * @author Andrea Maranesi
 	 */
 	public ArrayList<String> cerca_valori(String stringa, String separatore) {
@@ -39,7 +38,6 @@ public abstract class strumenti_comuni {
 	 * data_iniziale
 	 * 
 	 * @see #cerca_valori(String, String)
-	 * @param data_iniziale
 	 * @author Alessio Pettinari
 	 */
 	public boolean verifica_data(post post, String data_iniziale) {
