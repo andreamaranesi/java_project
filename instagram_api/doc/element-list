@@ -1,0 +1,10 @@
+com.instagram.api
+com.instagram.api.config_generali
+com.instagram.api.eccezioni
+com.instagram.api.modelli
+com.instagram.api.modelli.web
+com.instagram.api.ricorsione_post
+com.instagram.api.statistiche
+com.instagram.api.strumenti_rapidi
+com.instagram.api.utenti
+com.instagram.api.utenti.metadati
