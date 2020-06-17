@@ -1,0 +1,82 @@
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<style>
+body {
+	margin: 0;
+	background: #000;
+	color: #fff;
+}
+
+.mostra_risultati {
+	position: relative;
+	margin: 0;
+	padding: 20px 0px;
+	width: 100%;
+}
+
+.mostra_risultati h2 {
+	text-align: center;
+}
+
+#video video {
+	width: 100%;
+	height: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+	.mostra_risultati .post {
+		width: calc(50vw - 55px) !important;
+	}
+}
+
+@keyframes move { 0%{
+	background-position: 0 0;
+}
+
+25%{
+background-position
+:
+50%
+ 
+50%;
+}
+50%{
+background-position
+:
+100%
+ 
+100%;
+}
+75%{
+background-position
+:
+50%
+ 
+50%;
+}
+}
+#immagine {
+	animation: move 4s infinite;
+}
+
+.mostra_risultati .post {
+	display: inline-block;
+	margin: 10px 20px;
+	width: calc(33.33vw - 50px);
+}
+
+.mostra_risultati .post ul {
+	list-style-type: square;
+}
+
+.mostra_risultati .post ul li {
+	color: #000;
+}
+
+.mostra_risultati .post .mdl-card__title {
+	min-height: 200px;
+}
+</style>

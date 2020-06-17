@@ -96,7 +96,7 @@ public abstract class strumenti_comuni {
 			throw new eccezione("Il file nella posizione " + path + " non esiste");
 		Scanner scanner = new Scanner(new File(path));
 		while (scanner.hasNext()) {
-			stringa += scanner.next();
+			stringa += scanner.nextLine();
 		}
 		return stringa;
 	}

@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,9 +29,8 @@ import com.instagram.api.utenti.post;
 import com.instagram.api.utenti.utente;
 
 /**
- * la classe serve per effettuare dei filtri sui post di ciascun
- * {@link com.instagram.api.utenti.utente} ottenuti tramite
- * {@link #nuova_chiamata_API()}
+ * la classe serve per effettuare dei filtri sui post di ciascun {@link com.instagram.api.utenti.utente} ottenuti
+ * tramite {@link #nuova_chiamata_API()} 
  * 
  */
 @Controller
@@ -41,9 +41,8 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	 * Se il post è un'immagine analizza anche l'altezza e la larghezza in px
 	 * 
 	 * @see com.instagram.api.utenti.strumenti_post#getDimensioni(String, boolean)
-	 * @return true se le dimensioni in MB o KB sono state rispettate, così come le
-	 *         dimensioni in px dell'altezza e della larghezza, nel caso in cui il
-	 *         post sia un'immagine.
+	 * @return true se le dimensioni in MB o KB sono state rispettate, così come le dimensioni in px dell'altezza
+	 * e della larghezza, nel caso in cui il post sia un'immagine.
 	 * 
 	 */
 	@Override
@@ -103,17 +102,15 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 		}
 		return false;
 	}
-
+	
 	/**
 	 * 
-	 * metodo per analizzare i vari post a seconda dei filtri passati dall'utente
-	 * mediante il metodo
+	 * metodo per analizzare i vari post a seconda dei filtri passati dall'utente mediante il metodo
 	 * {@link #ottieni_filtri(opzioni_filtri, boolean, String, String)}
 	 * 
 	 * @see #verifica_descrizione(String, lunghezza_desc)
 	 * @see #verifica_hashtag(post, String)
-	 * @see com.instagram.api.strumenti_rapidi.strumenti_comuni#verifica_data(post,
-	 *      String)
+	 * @see com.instagram.api.strumenti_rapidi.strumenti_comuni#verifica_data(post, String)
 	 * @see #analizza_dimensioni(post, opzioni_filtri)
 	 * @param lista_utenti
 	 * @param filtri
@@ -122,8 +119,8 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	 * @return JSON dati filtrati
 	 * @throws eccezione
 	 */
-	public String filtra_dati(lista_utenti lista_utenti, opzioni_filtri filtri, String hashtag, String data_caricamento)
-			throws eccezione {
+	public Object filtra_dati(lista_utenti lista_utenti, opzioni_filtri filtri, String hashtag,
+			String data_caricamento, boolean json) throws eccezione {
 
 		try {
 
@@ -133,11 +130,11 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 				int numero_post = 0;
 				for (int i = 0; i < utente.posts.size() && numero_post < filtri.getLimite(); i++) {
 					post post = utente.posts.get(i);
-					post.filtrato = true;
+					post.filtrato = true;	
 					String descrizione = (String) post.getDescrizione();
 					lunghezza_desc dimensioni = filtri.opzioni_post.lunghezza_desc;
-					if ((!filtri.opzioni_post.descrizione || verifica_descrizione(descrizione, dimensioni))
-							&& verifica_hashtag(post, hashtag) && verifica_data(post, data_caricamento)) {
+					if ((!filtri.opzioni_post.descrizione || verifica_descrizione(descrizione, dimensioni)) && verifica_hashtag(post, hashtag)
+							&& verifica_data(post, data_caricamento)) {
 						if (((String) post.getTipo_post()).contains("CAROUSEL_ALBUM")) {
 							ArrayList<post> post_album_filtrati = new ArrayList();
 							post.setAlbum(true);
@@ -155,11 +152,9 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 
 							}
 
-							if (post_album_filtrati.size() > 0) {
-								post_filtrati.add(post);
-								post.setChildren(post_album_filtrati);
-								post.setAlbum(true);
-							}
+							post_filtrati.add(post);
+							post.setChildren(post_album_filtrati);
+							post.setAlbum(true);
 						} else {
 							boolean VIDEO = ((String) post.getTipo_post()).contains("VIDEO") ? true : false;
 
@@ -177,7 +172,10 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 				utente.posts = post_filtrati;
 
 			}
+			if(json)
 			return new ObjectMapper().writeValueAsString(lista_utenti);
+			else
+				return lista_utenti;
 
 		} catch (Exception e) {
 			throw new eccezione("Si è verificato un errore: " + e.getLocalizedMessage());
@@ -185,9 +183,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	}
 
 	/**
-	 * verifica se l'hashtag passato con la chiamata GET
-	 * {@link #ottieni_filtri(opzioni_filtri, boolean, String, String)} e' presente
-	 * nella descrizione del singolo post
+	 * verifica se l'hashtag passato con la chiamata GET {@link #ottieni_filtri(opzioni_filtri, boolean, String, String)} e' presente nella descrizione del singolo post
 	 * 
 	 * @see #ottieni_filtri(opzioni_filtri, boolean, String, String)
 	 * @see #cerca_valori(String, String)
@@ -198,9 +194,9 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 			return true;
 		if (post.getDescrizione() == null)
 			return false;
-		hashtag = hashtag.replaceAll("[\\s]", "");
+		hashtag=hashtag.replaceAll("[\\s]","");
 		ArrayList<String> _hashtag = post.hashtag();
-		String separatore = "||";
+		String separatore = "or";
 		if (_hashtag == null)
 			return true;
 		hashtag = hashtag.trim();
@@ -216,8 +212,8 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	}
 
 	/*
-	 * verifica se la descrizione del post ha un numero di caratteri compresi tra
-	 * quelli minimi e massimi scelti dagli utenti nei filtri
+	 * verifica se la descrizione del post ha un numero di caratteri compresi tra quelli minimi e massimi 
+	 * scelti dagli utenti nei filtri
 	 * 
 	 */
 	@Override
@@ -235,13 +231,11 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	}
 
 	/**
-	 * verifica se la stringa hashtag passata col metodo GET
-	 * {@link #ottieni_filtri(opzioni_filtri, boolean, String, String)} e' valida
-	 * <br>
-	 * Es: sea||italy è valido<br>
+	 * verifica se la stringa hashtag passata col metodo GET {@link #ottieni_filtri(opzioni_filtri, boolean, String, String)} e' valida
+	 * <br> Es: sea||italy è valido<br>
 	 * Es: #sea è un filtro invalido
 	 *
-	 * @see #ottieni_filtri(opzioni_filtri, boolean, String, String) *
+	 * @see #ottieni_filtri(opzioni_filtri, boolean, String, String)	 * 
 	 * @see #verifica_regex(String, String)
 	 * 
 	 */
@@ -252,10 +246,8 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 
 	/**
 	 * 
-	 * legge dal file locale <b>dati_lettura.json</b> i dati ottenuti in precedenza
-	 * mediante una nuova chiamata API ({@link #nuova_chiamata_API()}), oppure ne
-	 * effettua una nuova. In quest'ultimo caso memorizza nel file locale
-	 * <b>dati_lettura.json</b> i dati così ottenuti.
+	 * legge dal file locale <b>dati_lettura.json</b> i dati ottenuti in precedenza mediante una nuova chiamata API ({@link #nuova_chiamata_API()}), 
+	 * oppure ne effettua una nuova. In quest'ultimo caso memorizza nel file locale <b>dati_lettura.json</b> i dati così ottenuti.
 	 * 
 	 * @return tutti i post conformi ai filtri scelti.
 	 * 
@@ -268,7 +260,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 	 * @throws access_token_errato
 	 * @throws eccezione
 	 * @throws stringa_errata
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/dati", produces = "application/json")
 	@ResponseBody
@@ -282,28 +274,27 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 
 		if (leggi_dafile_locale) {
 			String json = "";
-			json = super.leggi("./dati_lettura.json");
+			json = super.leggi(super.path_dati_lettura);
 			try {
 				return filtra_dati(new ObjectMapper().readValue(json, lista_utenti.class), _filtri, hashtag,
-						data_caricamento);
+						data_caricamento,false);
 
 			} catch (Exception e) {
 
 				throw new eccezione(
-						"Errore nel file locale dati_lettura.json. Verificarne l'esistenza o prova a fare una nuova chiamata");
+						"Errore nel file locale " + super.path_dati_lettura + ". Verificarne l'esistenza o prova a fare una nuova chiamata");
 
 			}
 		} else {
 			lista_utenti lista_utenti = nuova_chiamata_API();
 
 			try {
-				new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(new File(path_dati_lettura),
-						lista_utenti);
+				new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(new File(path_dati_lettura), lista_utenti);
 			} catch (IOException e) {
 
 			}
 
-			return filtra_dati(lista_utenti, _filtri, hashtag, data_caricamento);
+			return filtra_dati(lista_utenti, _filtri, hashtag, data_caricamento,false);
 		}
 
 	}

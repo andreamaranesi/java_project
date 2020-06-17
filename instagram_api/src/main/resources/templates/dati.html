@@ -1,0 +1,34 @@
+<html>
+<head th:include="style/style.html">
+</head>
+<body th:each="utente: ${lista_utenti.utenti}">
+	<div class="mostra_risultati">
+		<h2 th:text="${utente.getUsername()}"></h2>
+		<div th:each="post: ${utente.posts}"
+			class="post mdl-card mdl-shadow--2dp">
+			<div th:switch="${post.getTipo_post()}">
+				<div id="immagine" th:case="'IMMAGINE'"
+					th:style="'background-image:url(' + ${post.getMedia_url()} + ');background-size:cover'"
+					class="mdl-card__title"></div>
+				<div id="video" th:case="'VIDEO'" class="mdl-card__title">
+					<video autoplay controls>
+						<source th:src="${post.getMedia_url()}">
+					</video>
+				</div>
+
+			</div>
+
+			<div th:text="${post.getDescrizione()}"
+				class="mdl-card__supporting-text"></div>
+			<div class="mdl-card__actions mdl-card--border">
+				<ul>
+					<li>Altezza: <b th:text="${post.getAltezza()}"></b></li>
+					<li>Larghezza: <b th:text="${post.getLarghezza()}"></b></li>
+					<li>Dimensione: <b th:text="${post.getDimensione()}"></b></li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

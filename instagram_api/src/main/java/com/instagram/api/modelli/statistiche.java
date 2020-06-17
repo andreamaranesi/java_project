@@ -345,13 +345,13 @@ public class statistiche extends chiamate_API implements strumenti_statistiche {
 		verifica_get_data_caricamento(data_caricamento);
 		if (leggi_dafile_locale) {
 			String json = "";
-			json = super.leggi("./dati_lettura.json");
+			json = super.leggi(super.path_dati_lettura);
 			try {
 				return genera_statistiche(new ObjectMapper().readValue(json, lista_utenti.class), filtri,
 						data_caricamento);
 			} catch (Exception e) {
 				throw new eccezione(
-						"Errore nel file locale dati_lettura.json. Verificarne l'esistenza o prova a fare una nuova chiamata");
+						"Errore nel file locale " + super.path_dati_lettura + ". Verificarne l'esistenza o prova a fare una nuova chiamata");
 			}
 
 		} else {

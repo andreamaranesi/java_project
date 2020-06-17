@@ -90,6 +90,7 @@ public abstract class strumenti_post extends manipola_data_instagram {
 	/**
 	 * consente di trovare gli hashtag presenti all'interno della descrizione di un {@link com.instagram.api.utenti.post}
 	 * 
+	 * @author Andrea Maranesi
 	 * @param descrizione
 	 */
 	public ArrayList<String> hashtag(String descrizione) {
