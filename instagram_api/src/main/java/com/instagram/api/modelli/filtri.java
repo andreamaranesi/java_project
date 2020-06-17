@@ -200,7 +200,7 @@ public class filtri extends chiamate_API implements strumenti_filtri {
 		if (post.getDescrizione() == null)
 			return false;
 		ArrayList<String> _hashtag = post.hashtag();
-		String separatore = " or ";
+		String separatore = " or";
 		if (_hashtag == null)
 			return true;
 		ArrayList<String> hashtag_da_cercare = new ArrayList();
