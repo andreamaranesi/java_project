@@ -59,7 +59,7 @@ class filtri_web extends chiamate_API {
 			} catch (Exception e) {
 
 				throw new eccezione(
-						"Errore nel file locale dati_lettura.json. Verificarne l'esistenza o prova a fare una nuova chiamata");
+						"Errore nel file locale" + path_dati_lettura + ". Verificarne l'esistenza o prova a fare una nuova chiamata");
 
 			}
 		} else {
