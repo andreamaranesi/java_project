@@ -106,10 +106,10 @@ Dal file locale **config.json** troviamo i filtri di default e gli **access_toke
 	},
 	"credenziali": [
 		{
-			"access_token": "IGQVJXaVZAfb0ZAZAWG0welFHLXpBaFltajFrOUpWcllBdF91NmpEbHVvdTNrQTRHNnNrRk43MXJrUnR3OUlCTW1ueG9tRHk2R3RsSURPbUhLdE5XOG1vOXVhTTAxR3pXWm01aXExcldmUVZAGS3ZAGVFBrZAQZDZD"
+			"access_token": ""
 		},
 		{
-			"access_token": "IGQVJYUmtuTU9qZAWRaRzF5WTZAhTFdaekhUUjJ3WGNDSHMwUTd2VHBQVExzZAWhyLWpfeDktWEVZAa2diYThtSlJRTzZA1YTg3ZAktyMk5KRVBEQ1djQ2pXV2NVeFJIWUJwMEp3ckxia3RXVkt3aTdNR0RvYwZDZD"
+			"access_token": ""
 		}
 	]
 }
