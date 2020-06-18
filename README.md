@@ -90,7 +90,7 @@ Il programma è in grado di recuperare informazioni relativamente a
 
 ## INTRODUZIONE
 
-All'interno dell'applicazione sono presenti dei file locali JSON dai quali è possibile leggere dei dati di default.
+All'interno dell'applicazione sono presenti dei file locali JSON dai quali è possibile leggere i dati di default.
 
 #### CONFIG.JSON
 
@@ -540,7 +540,7 @@ leggi=**true**
 
 hashtag=**sea or montevettore**
 
-data_caricamento = **> 2019 and < 6-2020****
+data_caricamento = **> 2019 and < 6-2020**
 
 **BODY**:
 
