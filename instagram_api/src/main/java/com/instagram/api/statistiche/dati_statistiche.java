@@ -7,7 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Classe per definire le statistiche per ogni {@link com.instagram.api.utenti.utente}
+ * Classe per definire le statistiche per ogni
+ * {@link com.instagram.api.utenti.utente}
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -42,21 +43,22 @@ public class dati_statistiche {
 	}
 
 	public String getAltezza_media() {
-		
 		return altezza_media;
 	}
 
 	public void setAltezza_media(String altezza_media) {
-		this.altezza_media = altezza_media;
+		if (!altezza_media.contains("-1"))
+			this.altezza_media = altezza_media;
 	}
 
 	public String getLarghezza_media() {
-	
+
 		return larghezza_media;
 	}
 
 	public void setLarghezza_media(String larghezza_media) {
-		this.larghezza_media = larghezza_media;
+		if (!larghezza_media.contains("-1"))
+			this.larghezza_media = larghezza_media;
 	}
 
 	public String getMedia_caricamenti() {
@@ -72,16 +74,18 @@ public class dati_statistiche {
 	}
 
 	public void setMedia_lung_descrizione(String media_lung_descrizione) {
-		this.media_lung_descrizione = media_lung_descrizione;
+		if (!media_lung_descrizione.contains("-1"))
+			this.media_lung_descrizione = media_lung_descrizione;
 	}
 
 	public String getDimensione_media() {
-		
+
 		return dimensione_media;
 	}
 
 	public void setDimensione_media(String dimensione_media) {
-		this.dimensione_media = dimensione_media;
+		if (!dimensione_media.contains("-1"))
+			this.dimensione_media = dimensione_media;
 	}
 
 }

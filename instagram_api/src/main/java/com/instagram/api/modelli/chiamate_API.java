@@ -109,7 +109,7 @@ public abstract class chiamate_API extends strumenti_comuni {
 	 */
 	public void verifica_get_data_caricamento(String data_caricamento) throws stringa_errata {
 		if (verifica_regex("[^0-9\\-and\\s><]", data_caricamento))
-			throw new stringa_errata("data_caricamento=" + data_caricamento + " è una chiamata errata");
+			throw new stringa_errata("data_caricamento = " + data_caricamento + " è una chiamata errata");
 	}
 
 	/**
@@ -221,8 +221,6 @@ public abstract class chiamate_API extends strumenti_comuni {
 		lista_utenti lista_utenti = new lista_utenti();
 
 		for (credenziali_utenti utente : config.opzioni.credenziali_utenti) {
-			shortcodes.pr(utente.getAccess_token());
-
 			String access_token = utente.getAccess_token();
 			RestTemplate restTemplate = new RestTemplate();
 
