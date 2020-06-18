@@ -13,7 +13,6 @@ Il programma è in grado di recuperare informazioni relativamente a
 
 ## INDICE CONTENUTI
 
-
 <ul>
     <li>UML<ul>
         <li><a href="#uml_usecase">Diagramma dei casi d'uso</a></li>
@@ -23,6 +22,7 @@ Il programma è in grado di recuperare informazioni relativamente a
     <li>Introduzione<ul>
          <li><a href="#config">config.json</a></li>
     <li><a href="#notabene">Nota bene</a></li>
+        <li><a href="#file_locali">File Locali</a></li>
         </ul>
     </li>
     <li><a href="#chiamate">CHIAMATE</a><ul>
@@ -50,6 +50,7 @@ Il programma è in grado di recuperare informazioni relativamente a
     </li>
  <li><a href="#web">WEB (<b>in Via di Sviluppo</b>)</a><ul>
 </ul>
+
 
 
 
@@ -129,6 +130,17 @@ Dal file locale **config.json** troviamo i filtri di default e gli **access_toke
 non è possibile effettuare più di 200 chiamate l'ora per utente, perciò ad ogni nuova chiamata verrà salvato in un file locale (**dati_lettura.json**) tutti i dati letti. 
 
 Questo file potrà essere utilizzato per filtrare i post e generare le statistiche.
+
+
+
+### <div id="file_locali">FILE LOCALI</div>
+
+| NOME                  | DESCRIZIONE                                                  |
+| --------------------- | ------------------------------------------------------------ |
+| **config.json**       | definisce i filtri di default e gli access_token dei vari utenti |
+| **dati_lettura.json** | file locale dove l'applicazione salva i dati ottenuti dai vari utenti |
+
+E' possibile cambiare il nome e la posizione di tali file mediante <a href="https://github.com/andreamaranesi/java_project/blob/master/instagram_api/src/main/resources/application.properties">**application.properties**</a>
 
 
 
