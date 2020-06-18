@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class cursori {
 
 	@JsonProperty("after")
-	String successivo;
+	private String successivo;
 
 	public String getSuccessivo() {
 		return successivo;

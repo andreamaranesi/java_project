@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class id_media {
 
-	long id;
+	private long id;
 
 	public long getId() {
 		return id;

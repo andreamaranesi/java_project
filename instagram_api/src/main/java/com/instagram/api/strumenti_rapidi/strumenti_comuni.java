@@ -96,6 +96,7 @@ public abstract class strumenti_comuni {
 		while (scanner.hasNext()) {
 			stringa += scanner.nextLine();
 		}
+		scanner.close();
 		return stringa;
 	}
 

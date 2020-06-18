@@ -5,8 +5,8 @@ import com.instagram.api.eccezioni.cifra_errata;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class larghezza {
-	int min = 0;
-	int max = Integer.MAX_VALUE;
+	private int min = 0;
+	private int max = Integer.MAX_VALUE;
 
 	public int getMin() {
 		return min;

@@ -16,9 +16,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class media {
 
 	@JsonProperty("data")
-	ArrayList<id_media> id_media=new ArrayList();
+	private ArrayList<id_media> id_media=new ArrayList();
 	@JsonProperty("paging")
-	paginazione paginazione;
+	private paginazione paginazione;
 
 	
 	public ArrayList<id_media> getId_media() {
