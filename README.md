@@ -90,7 +90,7 @@ Il programma è in grado di recuperare informazioni relativamente a
 
 ## INTRODUZIONE
 
-All'interno dell'applicazione sono presenti dei file locali JSON dai quali è possibile leggere delle impostazioni di default.
+All'interno dell'applicazione sono presenti dei file locali JSON dai quali è possibile leggere dei dati di default.
 
 #### CONFIG.JSON
 
