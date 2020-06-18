@@ -2,6 +2,7 @@ package com.instagram.api.strumenti_rapidi;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -92,11 +93,15 @@ public abstract class strumenti_comuni {
 		File file = new File(path);
 		if (!file.exists())
 			throw new eccezione("Il file nella posizione " + path + " non esiste");
+		try {
 		Scanner scanner = new Scanner(new File(path));
 		while (scanner.hasNext()) {
 			stringa += scanner.nextLine();
 		}
 		scanner.close();
+		} catch (IOException e) {
+			throw new eccezione("Si è verificato un errore di lettura del file " + path);
+		}
 		return stringa;
 	}
 
